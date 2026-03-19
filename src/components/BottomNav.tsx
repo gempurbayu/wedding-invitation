@@ -4,10 +4,10 @@ import React from "react";
 
 const navItems = [
   { label: "Home", icon: "home", href: "#home" },
+  { label: "Mempelai", icon: "favorite", href: "#couple" },
   { label: "Event", icon: "calendar_month", href: "#details" },
   { label: "Gallery", icon: "photo_library", href: "#gallery" },
-  { label: "RSVP", icon: "how_to_reg", href: "#rsvp" },
-  { label: "Gift", icon: "featured_seasonal_and_gifts", href: "#gift" },
+  { label: "RSVP & Gift", icon: "how_to_reg", href: "#rsvp" },
 ];
 
 export default function BottomNav() {
