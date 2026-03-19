@@ -16,6 +16,9 @@
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
 
+  --z-index-100: 100;
+  --z-index-1000: 1000;
+
   @keyframes fade-in-up {
     from {
       opacity: 0;
