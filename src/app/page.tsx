@@ -7,8 +7,31 @@ import BottomNav from "@/components/BottomNav";
 function InvitationContent() {
   const [activeSegment, setActiveSegment] = React.useState("#home");
   const [isOpened, setIsOpened] = React.useState(false);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const audioRef = React.useRef<HTMLAudioElement>(null);
   const searchParams = useSearchParams();
   const guestName = searchParams.get("to") || "Guest";
+
+  React.useEffect(() => {
+    if (isOpened && audioRef.current) {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(err => {
+        console.log("Autoplay prevented:", err);
+      });
+    }
+  }, [isOpened]);
+
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
 
   return (
     <>
@@ -46,6 +69,26 @@ function InvitationContent() {
             </button>
           </div>
         </section>
+      )}
+
+      {/* BGM AUDIO ELEMENT */}
+      <audio ref={audioRef} src="/bgm.mp3" loop />
+
+      {/* FLOATING BGM TOGGLE (Constrained to Mobile Container) */}
+      {isOpened && (
+        <div className="fixed bottom-36 left-1/2 -translate-x-1/2 w-full max-w-md z-100 pointer-events-none">
+          <div className="relative w-full h-0">
+            <button
+              onClick={toggleMusic}
+              className="absolute right-4 top-0 size-10 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white flex items-center justify-center shadow-lg transition-transform active:scale-90 pointer-events-auto"
+              aria-label="Toggle Music"
+            >
+              <span className={`material-symbols-outlined text-xl text-terracotta ${isPlaying ? 'animate-pulse' : ''}`}>
+                {isPlaying ? 'music_note' : 'music_off'}
+              </span>
+            </button>
+          </div>
+        </div>
       )}
 
       <div className={`flex h-auto min-h-screen w-full flex-col bg-background-light ${!isOpened ? 'overflow-hidden h-screen' : ''}`}>
