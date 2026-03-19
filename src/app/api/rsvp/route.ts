@@ -29,20 +29,43 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const { data, error } = await supabase
-      .from('rsvp')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '10');
+    const search = searchParams.get('search') || '';
 
-    if (error) {
-      throw error;
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
+
+    let query = supabase
+      .from('rsvp')
+      .select('*', { count: 'exact' });
+
+    if (search) {
+      query = query.ilike('name', `%${search}%`);
     }
 
-    return NextResponse.json(data || []);
+    const { data, error, count } = await query
+      .order('created_at', { ascending: false })
+      .range(from, to);
+
+    if (error) throw error;
+
+    return NextResponse.json({
+      data: data || [],
+      count: count || 0,
+      totalPages: Math.ceil((count || 0) / limit),
+      currentPage: page
+    });
   } catch (error) {
     console.error('Fetch RSVP Error:', error);
-    return NextResponse.json([]);
+    return NextResponse.json({
+      data: [],
+      count: 0,
+      totalPages: 0,
+      currentPage: 1
+    });
   }
 }
