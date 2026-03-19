@@ -1,65 +1,340 @@
-import Image from "next/image";
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import React, { Suspense } from "react";
+import BottomNav from "@/components/BottomNav";
+
+function InvitationContent() {
+  const [activeSegment, setActiveSegment] = React.useState("#home");
+  const [isOpened, setIsOpened] = React.useState(false);
+  const searchParams = useSearchParams();
+  const guestName = searchParams.get("to") || "Guest";
+
+  return (
+    <>
+      {/* SECTION: OPENING LANDING */}
+      {!isOpened && (
+        <section className="fixed inset-0 z-100 flex flex-col items-center justify-center bg-background-light text-center p-6 animate-in fade-in duration-700">
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 bg-linear-to-b from-background-dark/40 to-background-dark/80 z-10"></div>
+            <div
+              className="w-full h-full bg-center bg-no-repeat bg-cover"
+              style={{
+                backgroundImage:
+                  'url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8yJ6pa4M5BqKL4VNRDNtVW1OA7RxCcvrSgyYR4ay10SX-W914WsPu6_xzDv-2cKgU7O9XRUKZRGLNCGK1GQ6srZEuiCMQbemxWj9QEwmBviXSM6DgPdeifayzFkxYcYZUHTuSLWkZkZvh9OlhcgBIQ1yET4QqLNIZuNo83Dca3RolWTWezAg-ugxXTK8XNAo-Z6sCCxpL_u3rK3JToWw8BHoCHfufeN5TB2v-D7-O2W_JLvvglGGDb-QM15Oazh3BVWq818rfVk8")',
+              }}
+            ></div>
+          </div>
+
+          <div className="relative z-20 space-y-8 max-w-xs">
+            <div className="space-y-2">
+              <p className="text-white/80 text-xs font-black uppercase tracking-[0.4em]">Wedding Invitation</p>
+              <h1 className="text-white text-5xl font-extrabold italic leading-tight">Aris & Maya</h1>
+            </div>
+
+            <div className="space-y-4 bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20">
+              <p className="text-white/60 text-[10px] font-black uppercase tracking-[0.2em]">Kepada Bapak/Ibu/Saudara/i:</p>
+              <h2 className="text-white text-2xl font-bold italic">{guestName}</h2>
+            </div>
+
+            <button
+              onClick={() => setIsOpened(true)}
+              className="w-full bg-terracotta hover:bg-terracotta/90 text-white py-5 rounded-2xl font-black text-xl shadow-2xl shadow-terracotta/40 transition-all active:scale-95 flex items-center justify-center gap-3"
+            >
+              <span className="material-symbols-outlined">mail_outline</span>
+              Open Invitation
+            </button>
+          </div>
+        </section>
+      )}
+
+      <div className={`flex h-auto min-h-screen w-full flex-col bg-background-light ${!isOpened ? 'overflow-hidden h-screen' : ''}`}>
+        {/* SECTION: HOME */}
+        <section id="home" className="min-h-screen flex flex-col pt-4">
+          {/* Hero Section */}
+          <div className="px-4 py-4 flex-1 flex flex-col justify-center">
+          <div className="relative w-full aspect-4/5 overflow-hidden rounded-xl shadow-2xl">
+            <div className="absolute inset-0 bg-linear-to-t from-background-dark/60 via-transparent to-transparent z-10"></div>
+            <div
+              className="w-full h-full bg-center bg-no-repeat bg-cover transform hover:scale-105 transition-transform duration-700"
+              style={{
+                backgroundImage:
+                  'url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8yJ6pa4M5BqKL4VNRDNtVW1OA7RxCcvrSgyYR4ay10SX-W914WsPu6_xzDv-2cKgU7O9XRUKZRGLNCGK1GQ6srZEuiCMQbemxWj9QEwmBviXSM6DgPdeifayzFkxYcYZUHTuSLWkZkZvh9OlhcgBIQ1yET4QqLNIZuNo83Dca3RolWTWezAg-ugxXTK8XNAo-Z6sCCxpL_u3rK3JToWw8BHoCHfufeN5TB2v-D7-O2W_JLvvglGGDb-QM15Oazh3BVWq818rfVk8")',
+              }}
+            ></div>
+            <div className="absolute bottom-6 left-0 right-0 z-20 px-6 text-center">
+              <p className="text-white/90 text-sm font-medium tracking-[0.2em] uppercase mb-2">
+                Save the Date
+              </p>
+              <h1 className="text-white text-4xl font-extrabold leading-tight mb-4 italic">
+                Aris & Maya
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        {/* Home Footer Info */}
+        <div className="px-6 py-8 text-center space-y-6">
+          <div className="space-y-2">
+            <h2 className="text-terracotta text-2xl font-bold tracking-tight">
+              August 24th, 2026
+            </h2>
+            <p className="text-sage font-medium italic">
+              At The Whispering Pines Estate
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 max-w-sm mx-auto pb-12">
+            <a
+              href="#details"
+              className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-primary/20 transition-all text-center"
+            >
+              View Wedding Details
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION: DETAILS */}
+      <section id="details" className="min-h-screen py-16 border-t border-primary/5">
+        <div className="px-6 pb-8 text-center">
+          <h2 className="text-primary text-3xl font-extrabold italic mb-2">The Celebration</h2>
+          <div className="h-1 w-12 bg-accent mx-auto rounded-full"></div>
+        </div>
+        
+        <div className="px-4 space-y-8">
+          {/* Ceremony Card */}
+          <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-primary/5 space-y-4">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="bg-primary text-white p-2 rounded-lg">
+                <span className="material-symbols-outlined icon-filled">favorite</span>
+              </div>
+              <h3 className="text-primary text-xl font-bold">The Ceremony</h3>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <span className="material-symbols-outlined text-primary mt-0.5">schedule</span>
+                <div>
+                  <p className="font-semibold text-primary">2:30 PM — 3:30 PM</p>
+                  <p className="text-sm text-slate-500">Please arrive 15 minutes early</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="material-symbols-outlined text-primary mt-0.5">location_on</span>
+                <div>
+                  <p className="font-semibold text-primary">St. Mary&apos;s Botanical Garden</p>
+                  <p className="text-sm text-slate-500">123 Green Valley Road, Ojai, CA</p>
+                </div>
+              </div>
+            </div>
+            <div
+              className="w-full h-40 rounded-xl overflow-hidden border border-primary/10 bg-center bg-cover"
+              style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuASQiJNcM68sNMQg_eiTyvk3pMvJodZYb8szo3Chl8lQ1d2ewAqszLgo7X4juick4WdGupKliS5E_gi5wpamt1mnIIQLQP_L-XZdiRcvY5lgob42N9-okcb-uY4bGByA7Xm3sjmFf3vzScf1NG7AfLZT4VMt3uH0ZciOq-c2OuNGV-_pavJ77Us2idNIE6EYiq9qPEgz_FkMUK2mnBFGqx-cTvX74VMnJXiBTCOIiQzK7UeYtqeuWCboyHpw9fmvD-4C1BU-BDwwfw')" }}
+            ></div>
+          </div>
+
+          {/* Reception Card */}
+          <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-primary/5 space-y-4">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="bg-terracotta text-white p-2 rounded-lg">
+                <span className="material-symbols-outlined icon-filled">celebration</span>
+              </div>
+              <h3 className="text-primary text-xl font-bold">The Reception</h3>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <span className="material-symbols-outlined text-terracotta mt-0.5">restaurant</span>
+                <div>
+                  <p className="font-semibold text-primary">5:00 PM — 11:00 PM</p>
+                  <p className="text-sm text-slate-500">Cocktails, Dinner & Dancing</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="material-symbols-outlined text-terracotta mt-0.5">home_pin</span>
+                <div>
+                  <p className="font-semibold text-primary">The Sunset Pavilion</p>
+                  <p className="text-sm text-slate-500">456 Shoreline Dr, Santa Barbara, CA</p>
+                </div>
+              </div>
+            </div>
+            <div
+              className="w-full h-40 rounded-xl overflow-hidden border border-primary/10 bg-center bg-cover"
+              style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAzYLRYN6Wr5uyUiUDPf3XjpOcK7Kf3yu1KLvfQEHFXJjFUBsdAZ5YNpGTpUn9Sle-xDrxdAFZvk71mSMO0rQRFHlFLo-BRKIzNKtaEo2gbTw90jMgagJjZ-G_YyeWK6wp-eH49AgycbDCWgFcduOFY_aCqxsPKaZtikwEeqgWU4ZkL408q-mNuB4lHIi_Ice71_7NbWV9MoipN0QA9KCA_2h3tS82cgWGeb-IcMvATyAEYHl6bdO8KwI2_qyAR_29JLOj29RjXqUc')" }}
+            ></div>
+          </div>
+        </div>
+      </section>
+      
+      {/* SECTION: STORY */}
+      <section id="gallery" className="min-h-screen py-16 bg-sage/5">
+        <div className="px-6 pb-12 text-center">
+          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-sage mb-2">Our Moments</p>
+          <h2 className="text-primary text-3xl font-extrabold italic">Story & Moments</h2>
+          <div className="h-1 w-12 bg-accent mx-auto rounded-full mt-4"></div>
+        </div>
+
+        {/* Story Timeline */}
+        <div className="px-8 pb-16 space-y-12 relative max-w-lg mx-auto border-b border-primary/5">
+          {/* Vertical Line */}
+          <div className="absolute left-10 top-8 bottom-8 w-0.5 border-l-2 border-dashed border-primary/20"></div>
+
+          {[
+            { 
+              date: "Summer 2020", 
+              title: "First Meeting", 
+              desc: "A chance encounter at a local coffee shop that changed everything.",
+              icon: "coffee_maker",
+              color: "bg-sage"
+            },
+            { 
+              date: "Winter 2021", 
+              title: "The First Date", 
+              desc: "An evening walk under the city lights that felt like a lifetime.",
+              icon: "favorite",
+              color: "bg-primary"
+            },
+            { 
+              date: "Spring 2023", 
+              title: "The Proposal", 
+              desc: "On a quiet hilltop at sunset, she said 'Yes' to forever.",
+              icon: "auto_awesome",
+              color: "bg-terracotta"
+            },
+            { 
+              date: "August 2026", 
+              title: "Our Wedding", 
+              desc: "The beginning of our new chapter as Mr. & Mrs.",
+              icon: "celebration",
+              color: "bg-accent"
+            }
+          ].map((step, i) => (
+            <div key={i} className="relative flex items-start gap-8 group">
+              {/* Circle Node */}
+              <div className={`relative z-10 size-12 rounded-full ${step.color} text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform ring-4 ring-background-light`}>
+                <span className="material-symbols-outlined text-xl">{step.icon}</span>
+              </div>
+              {/* Content */}
+              <div className="flex-1 pt-1">
+                <p className="text-xs font-black text-primary/60 uppercase tracking-widest mb-1">{step.date}</p>
+                <h4 className="text-lg font-bold text-primary mb-2">{step.title}</h4>
+                <p className="text-sm text-primary/60 leading-relaxed italic">
+                  &quot;{step.desc}&quot;
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Gallery Masonry */}
+        <div className="px-4 py-8 masonry-grid">
+          {[
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuDSWgyyCvIaT2b8ilZBBLsDCQfMFaBr6r-FqJGYk6163zq-CjteOjNg0yZDMD0ZS_Q_iFhC8NerCLFskuI1rhJ6L1EYuNw9q_LX6UP5Wv8M6j4pML7VHmFOQHi2JZTeExFYudhKZke-F5Vzt8xzoM7ph3MPcJmyUpkJIJuc_QlCeS23bwfCmEahiJrG_ztP2dSLDtUvRX34Ecu9yXwty5Ay8LQIZBYXwGtQb7ufeSmI6Bkl_bg3MHBnKTl_xbhzgqAqYX8OHDEY5HA",
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuASYcYIvUgnQKu2X86DR1QW5UC2I-9UCkjC4x8Kp3e6gKxXN9PQ2GRDKsWWtnlMlVgi6cpaB-GA67VPzW54nbVp_gf1213VWrUTfr807j_NIvcWTBHIGCghxnJFt6ZJcXblmiSAw33FtHqXz0iv3J4oBOfewTlPBrEc3cnsGeGdKpNWGm8Yhrx6wF6z6NyocO7vhhTcvnPfgdBIg7DfNjJCOs74ZAlw6yf-wHL9f5taJc4lcj-iG1P08xC5-1OvLvyfSygvoLZ0-cw",
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuD-8WF3YrghFh4WFCfwn1yCdYmlr0u9hEgox4KRgm22C4BK4AX6BbhimHQ-viy_1m-3ZLc9mBxt00wjTgjwM31E3MD91U2gR-YO2W84dtJMVIGSQ3WfYYK8AvC7zHM1RIlUrggtESpF1CCNkahTdZbOuDWd7iMN_V9qewpvtrSWRYArn4VA4acLNKZTd2KM0NjAqAxzgEZvb0K3OZ2y8cBsTiszM3fqCZ0r-cXcRxXPoIzJsKuBqTMjGKVghCQGOC1K4X2QvmrP_OU",
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuDhe0G3A6mxjq8-lQzYD-vEc6856lla7so0xoBf5pMHviA4JDGrbiSxFMvgNtXuYNTMFg8SPUmtgXuDM3QY2fskGIMsgHlSHM45CT91woSVCcSkgSEjiAYV6Ocs0p-9BwcaHjgaL2cVuPgqbSCrvB_mMpijY4ldHthnQ_Cx-oypBOsvP3xWJyeQTJnoTPrQ58vrTVtA_KBHJM_WsPdPraj9QSfAy2rPeqfkbQasnTjEVtVhpYnkbTfPHtET9oMKYC9UDeWtbXrNJEo"
+          ].map((src, i) => (
+            <div key={i} className="masonry-item">
+              <img src={src} alt="Gallery" className="w-full rounded-2xl shadow-lg border border-white/20" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION: RSVP */}
+      <section id="rsvp" className="min-h-screen py-16 bg-white/20">
+        <div className="px-6 pb-8 text-center text-primary">
+          <h2 className="text-3xl font-extrabold italic mb-2">Join Our Story</h2>
+          <p className="text-primary/60 text-sm font-medium italic">Please let us know if you can make it</p>
+        </div>
+
+        <form className="px-6 space-y-6 max-w-sm mx-auto" onSubmit={(e) => e.preventDefault()}>
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-primary">Full Name</label>
+            <input type="text" className="w-full h-14 bg-white/40 border border-primary/10 rounded-xl px-4 focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Enter your guest name" />
+          </div>
+          
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-primary">Will you attend?</label>
+            <div className="grid grid-cols-2 gap-4">
+              <button className="h-14 rounded-xl border-2 border-primary bg-primary text-white font-bold transition-all">Yes, I&apos;m In!</button>
+              <button className="h-14 rounded-xl border-2 border-primary/10 text-primary font-bold hover:bg-primary/5 transition-all">Sorry, can&apos;t</button>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-primary">Total Guests</label>
+            <select className="w-full h-14 bg-white/40 border border-primary/10 rounded-xl px-4 outline-none">
+              <option>1 Person</option>
+              <option>2 Persons</option>
+              <option>More</option>
+            </select>
+          </div>
+
+          <button className="w-full bg-primary text-white h-16 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all mt-4">
+            CONFIRM RSVP
+          </button>
+        </form>
+      </section>
+
+      {/* SECTION: GIFT */}
+      <section id="gift" className="min-h-screen py-16 bg-primary text-white">
+        <div className="px-8 pb-12 text-center">
+          <span className="material-symbols-outlined text-5xl mb-4 icon-filled opacity-80">featured_seasonal_and_gifts</span>
+          <h2 className="text-3xl font-black italic mb-4">Wedding Gift</h2>
+          <p className="text-white/80 leading-relaxed max-w-xs mx-auto italic text-sm">
+            &quot;Your presence is enough for us, but if you wish to give, your generosity is much appreciated.&quot;
+          </p>
+        </div>
+
+        <div className="px-6 space-y-6">
+          {/* Bank Card */}
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 text-primary shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+            <div className="flex justify-between items-start mb-8">
+              <div className="bg-primary/10 px-3 py-1 rounded-full"><span className="text-[10px] font-black text-primary uppercase tracking-widest">Bank BCA</span></div>
+              <span className="material-symbols-outlined text-primary">contactless</span>
+            </div>
+            <div className="mb-8">
+              <p className="text-primary font-mono text-2xl font-bold tracking-tighter">8820 4491 300</p>
+              <p className="text-[10px] uppercase font-black tracking-widest text-primary/40 mt-1">Aris & Maya</p>
+            </div>
+            <button className="w-full h-12 bg-primary text-white rounded-xl font-bold flex items-center justify-center gap-2">
+              <span className="material-symbols-outlined text-sm">content_copy</span>
+              Copy Account Number
+            </button>
+          </div>
+
+          {/* QRIS Placeholder */}
+          <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 text-center">
+            <div className="w-48 h-48 bg-white mx-auto rounded-2xl p-3 mb-4 shadow-inner">
+               <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZfJNhigGudx9iY9PC_V1CMK1nRikx20hGUF83mYUCbh1_5CKT92_CUFjlN1Fb_TyvqLgIhBTwvbLE5qKC9Cg41fATVeXagtZVLGmL7Gs1FkbKzp-BC03bYqhx-p5O9GkujcgJ89JjxsCXs_Xs0tbRlHMN1nU8TpH8A2EKln3FGe_066eybR-0IC9xrvZ9-nEQUrfmaqdwLSlIw8VO-itjZipeChEryjBDKL7NY-S3asUOdgK1_kuhtETUQPit1aCR4XNJybxgQgM" className="w-full h-full grayscale" alt="QRIS" />
+            </div>
+            <p className="text-xs font-bold uppercase tracking-widest text-white/60 mb-2">Scan QRIS to Donate</p>
+          </div>
+        </div>
+
+        {/* Final Footer */}
+        <div className="pt-24 pb-32 text-center space-y-4">
+          <div className="flex justify-center gap-4 text-white/40">
+            <span className="material-symbols-outlined text-sm">favorite</span>
+            <span className="material-symbols-outlined text-sm">favorite</span>
+            <span className="material-symbols-outlined text-sm">favorite</span>
+          </div>
+          <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60">Aris & Maya Wedding Team</p>
+        </div>
+      </section>
+
+        {/* Padding for Bottom Nav */}
+        <div className="h-24"></div>
+        {isOpened && <BottomNav />}
+      </div>
+    </>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <Suspense fallback={<div className="min-h-screen bg-background-light"></div>}>
+      <InvitationContent />
+    </Suspense>
   );
 }
