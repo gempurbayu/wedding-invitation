@@ -5,13 +5,48 @@ import React, { Suspense } from "react";
 import BottomNav from "@/components/BottomNav";
 import Countdown from "@/components/Countdown";
 
+interface RSVPResponse {
+  id: string;
+  name: string;
+  attending: boolean;
+  message: string;
+  timestamp: string;
+}
+
 function InvitationContent() {
   const [activeSegment, setActiveSegment] = React.useState("#home");
   const [isOpened, setIsOpened] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const audioRef = React.useRef<HTMLAudioElement>(null);
   const searchParams = useSearchParams();
-  const guestName = searchParams.get("to") || "Guest";
+  const guestName = searchParams.get("to") || "";
+
+  const [rsvpName, setRsvpName] = React.useState(guestName);
+  const [isAttending, setIsAttending] = React.useState<boolean | null>(null);
+  const [rsvpMessage, setRsvpMessage] = React.useState("");
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [responses, setResponses] = React.useState<RSVPResponse[]>([]);
+
+  const fetchResponses = async () => {
+    try {
+      const res = await fetch('/api/rsvp');
+      if (res.ok) {
+        const data = await res.json();
+        setResponses(data.sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
+      }
+    } catch (error) {
+      console.error("Failed to fetch RSVPs:", error);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchResponses();
+  }, []);
+
+  React.useEffect(() => {
+    if (guestName) setRsvpName(guestName);
+  }, [guestName]);
 
   React.useEffect(() => {
     if (isOpened && audioRef.current) {
@@ -388,33 +423,133 @@ function InvitationContent() {
             <p className="text-primary/60 text-sm font-medium italic">Please let us know if you can make it</p>
           </div>
 
-          <form className="px-6 space-y-6 max-w-sm mx-auto" onSubmit={(e) => e.preventDefault()}>
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-primary">Full Name</label>
-              <input type="text" className="w-full h-14 bg-white/40 border border-primary/10 rounded-xl px-4 focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Enter your guest name" />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-primary">Will you attend?</label>
-              <div className="grid grid-cols-2 gap-4">
-                <button className="h-14 rounded-xl border-2 border-primary bg-primary text-white font-bold transition-all">Yes, I&apos;m In!</button>
-                <button className="h-14 rounded-xl border-2 border-primary/10 text-primary font-bold hover:bg-primary/5 transition-all">Sorry, can&apos;t</button>
+          {isSubmitted ? (
+            <div className="px-6 py-12 text-center space-y-4 animate-in zoom-in duration-500">
+              <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="material-symbols-outlined text-4xl text-primary icon-filled">check_circle</span>
               </div>
+              <h3 className="text-2xl font-bold text-primary italic">Terima Kasih!</h3>
+              <p className="text-primary/60 italic text-sm">Konfirmasi Anda telah kami terima.</p>
+              <button
+                onClick={() => setIsSubmitted(false)}
+                className="text-primary font-bold text-xs underline underline-offset-4 pt-4"
+              >
+                Kirim pesan lain
+              </button>
             </div>
+          ) : (
+            <form
+              className="px-6 space-y-6 max-w-sm mx-auto"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (!rsvpName || isAttending === null) return;
 
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-primary">Total Guests</label>
-              <select className="w-full h-14 bg-white/40 border border-primary/10 rounded-xl px-4 outline-none">
-                <option>1 Person</option>
-                <option>2 Persons</option>
-                <option>More</option>
-              </select>
+                setIsSubmitting(true);
+                try {
+                  const res = await fetch('/api/rsvp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      name: rsvpName,
+                      attending: isAttending,
+                      message: rsvpMessage
+                    })
+                  });
+                  if (res.ok) {
+                    setIsSubmitted(true);
+                    setRsvpMessage("");
+                    fetchResponses();
+                  }
+                } catch (error) {
+                  console.error(error);
+                } finally {
+                  setIsSubmitting(false);
+                }
+              }}
+            >
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-primary">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  value={rsvpName}
+                  onChange={(e) => setRsvpName(e.target.value)}
+                  className="w-full h-14 bg-white/40 border border-primary/10 rounded-xl px-4 focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  placeholder="Enter your guest name"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-primary">Will you attend?</label>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsAttending(true)}
+                    className={`h-14 rounded-xl border-2 transition-all font-bold ${isAttending === true ? 'bg-primary text-white border-primary' : 'border-primary/10 text-primary hover:bg-primary/5'}`}
+                  >
+                    Yes, I&apos;m In!
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsAttending(false)}
+                    className={`h-14 rounded-xl border-2 transition-all font-bold ${isAttending === false ? 'bg-primary text-white border-primary' : 'border-primary/10 text-primary hover:bg-primary/5'}`}
+                  >
+                    Sorry, can&apos;t
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-primary">Ucapan & Doa</label>
+                <textarea
+                  value={rsvpMessage}
+                  onChange={(e) => setRsvpMessage(e.target.value)}
+                  className="w-full h-32 bg-white/40 border border-primary/10 rounded-xl p-4 focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                  placeholder="Tuliskan ucapan & doa untuk mempelai..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting || !rsvpName || isAttending === null}
+                className="w-full bg-primary text-white h-16 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all mt-4 disabled:opacity-50 disabled:grayscale disabled:scale-100"
+              >
+                {isSubmitting ? 'SENDING...' : 'CONFIRM RSVP'}
+              </button>
+            </form>
+          )}
+
+          {/* GUEST MESSAGES LIST */}
+          <div className="mt-12 px-6 max-w-sm mx-auto">
+            <h3 className="text-primary font-bold mb-4 flex items-center gap-2">
+              <span className="material-symbols-outlined text-sm">forum</span>
+              Guest Messages ({responses.length})
+            </h3>
+            <div className="space-y-4 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar pb-8">
+              {responses.length === 0 ? (
+                <p className="text-primary/40 italic text-center py-8 text-sm bg-white/10 rounded-2xl border border-dashed border-primary/20">Belum ada pesan.</p>
+              ) : (
+                responses.map((resp) => (
+                  <div key={resp.id} className="bg-white/40 backdrop-blur-sm p-4 rounded-2xl border border-primary/5 space-y-2 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                    <div className="flex justify-between items-start gap-2">
+                      <h4 className="font-bold text-primary text-sm flex items-center gap-1">
+                        {resp.name}
+                        {resp.attending ? (
+                          <span className="text-[10px] bg-green-500/10 text-green-600 px-2 py-0.5 rounded-full font-black uppercase">Attending</span>
+                        ) : (
+                          <span className="text-[10px] bg-red-500/10 text-red-600 px-2 py-0.5 rounded-full font-black uppercase">Absent</span>
+                        )}
+                      </h4>
+                      <span className="text-[10px] text-primary/40 font-medium whitespace-nowrap">
+                        {new Date(resp.timestamp).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+                      </span>
+                    </div>
+                    <p className="text-primary/70 text-sm leading-relaxed italic">&quot;{resp.message || "Tanpa pesan."}&quot;</p>
+                  </div>
+                ))
+              )}
             </div>
-
-            <button className="w-full bg-primary text-white h-16 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all mt-4">
-              CONFIRM RSVP
-            </button>
-          </form>
+          </div>
         </section>
 
         {/* SECTION: GIFT */}
