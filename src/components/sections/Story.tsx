@@ -62,7 +62,7 @@ export default function StorySection() {
               "https://lh3.googleusercontent.com/aida-public/AB6AXuD-8WF3YrghFh4WFCfwn1yCdYmlr0u9hEgox4KRgm22C4BK4AX6BbhimHQ-viy_1m-3ZLc9mBxt00wjTgjwM31E3MD91U2gR-YO2W84dtJMVIGSQ3WfYYK8AvC7zHM1RIlUrggtESpF1CCNkahTdZbOuDWd7iMN_V9qewpvtrSWRYArn4VA4acLNKZTd2KM0NjAqAxzgEZvb0K3OZ2y8cBsTiszM3fqCZ0r-cXcRxXPoIzJsKuBqTMjGKVghCQGOC1K4X2QvmrP_OU",
               "https://lh3.googleusercontent.com/aida-public/AB6AXuDhe0G3A6mxjq8-lQzYD-vEc6856lla7so0xoBf5pMHviA4JDGrbiSxFMvgNtXuYNTMFg8SPUmtgXuDM3QY2fskGIMsgHlSHM45CT91woSVCcSkgSEjiAYV6Ocs0p-9BwcaHjgaL2cVuPgqbSCrvB_mMpijY4ldHthnQ_Cx-oypBOsvP3xWJyeQTJnoTPrQ58vrTVtA_KBHJM_WsPdPraj9QSfAy2rPeqfkbQasnTjEVtVhpYnkbTfPHtET9oMKYC9UDeWtbXrNJEo"
             ].map((src, i) => (
-              <div key={i} className="min-w-[75vw] aspect-square rounded-2xl overflow-hidden shadow-xl border border-primary/10 snap-center transition-all duration-300 hover:scale-[1.02]">
+              <div key={i} className="w-72 flex-shrink-0 aspect-[4/5] rounded-2xl overflow-hidden shadow-xl border border-primary/10 snap-center transition-all duration-300 hover:scale-[1.02]">
                 <img src={src} alt="Gallery Carousel" className="w-full h-full object-cover" />
               </div>
             ))}

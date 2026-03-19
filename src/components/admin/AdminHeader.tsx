@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AdminHeader({ onRefresh }: { onRefresh: () => void }) {
+export default function AdminHeader({ onRefresh, onLogout }: { onRefresh: () => void; onLogout: () => void }) {
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/10 pb-10">
       <div className="space-y-1">
@@ -14,12 +14,22 @@ export default function AdminHeader({ onRefresh }: { onRefresh: () => void }) {
           </a>
         </div>
       </div>
-      <button 
-        onClick={onRefresh} 
-        className="size-10 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 flex items-center justify-center transition-all text-white"
-      >
-        <span className="material-symbols-outlined text-xl">refresh</span>
-      </button>
+      <div className="flex items-center gap-3">
+        <button 
+          onClick={onRefresh} 
+          className="size-10 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 flex items-center justify-center transition-all text-white group"
+          title="Refresh Data"
+        >
+          <span className="material-symbols-outlined text-xl group-hover:rotate-180 transition-transform duration-500">refresh</span>
+        </button>
+        <button 
+          onClick={onLogout} 
+          className="px-4 h-10 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-full border border-red-500/20 flex items-center gap-2 transition-all font-bold text-xs uppercase tracking-widest"
+        >
+          <span className="material-symbols-outlined text-lg">logout</span>
+          Logout
+        </button>
+      </div>
     </div>
   );
 }

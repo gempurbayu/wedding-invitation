@@ -46,8 +46,9 @@ function InvitationContent() {
     try {
       const res = await fetch('/api/rsvp');
       if (res.ok) {
-        const data = await res.json();
-        setResponses(data.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
+        const result = await res.json();
+        const rsvpData = result.data || [];
+        setResponses(rsvpData.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
       }
     } catch (error) {
       console.error("Failed to fetch RSVPs:", error);

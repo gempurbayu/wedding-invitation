@@ -130,6 +130,11 @@ export default function AdminPage() {
     }
   };
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("admin_auth");
+    setIsAuthenticated(false);
+  };
+
   if (!isAuthenticated) {
     return <AdminLogin onLogin={handleLogin} />;
   }
@@ -145,7 +150,7 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white p-4 md:p-12 font-sans selection:bg-white/10">
       <div className="max-w-7xl mx-auto space-y-12">
-        <AdminHeader onRefresh={fetchData} />
+        <AdminHeader onRefresh={fetchData} onLogout={handleLogout} />
         
         {/* Tab Switcher */}
         <div className="flex gap-1 bg-zinc-900 p-1 rounded-2xl w-fit border border-white/5 mx-auto md:mx-0">
