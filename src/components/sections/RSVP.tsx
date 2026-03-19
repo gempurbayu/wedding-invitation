@@ -45,7 +45,12 @@ export default function RSVPSection({
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
         <div className="px-6 pb-8 text-center text-primary animate-fade-in">
           <h2 className="text-3xl font-extrabold italic mb-2">Join Our Story</h2>
-          <p className="text-primary/60 text-sm font-medium italic">Please let us know if you can make it</p>
+          <p className="text-primary/60 text-sm font-medium italic mb-4">Please let us know if you can make it</p>
+          <div className="bg-terracotta/5 p-4 rounded-xl border border-terracotta/10 inline-block animate-pulse max-w-[350px]">
+            <p className="text-terracotta font-medium text-[10px] leading-relaxed italic">
+              Besar harapan kami dapat berbagi kebahagiaan bersama. Mohon kesediaannya untuk konfirmasi paling lambat <span className="font-black not-italic text-xs">5 April 2026</span>.
+            </p>
+          </div>
         </div>
         {isSubmitted ? (
           <div className="px-6 py-12 text-center space-y-4 animate-zoom-in">
@@ -83,8 +88,8 @@ export default function RSVPSection({
         {responses.length > 0 && (
           <div className="mt-12 px-6 max-w-sm mx-auto space-y-4 animate-fade-in-up">
             <h3 className="text-primary font-bold italic border-b border-primary/5 pb-2 text-sm flex items-center gap-2">
-               <span className="material-symbols-outlined text-sm">chat_bubble</span>
-               Guest Messages ({responses.length})
+              <span className="material-symbols-outlined text-sm">chat_bubble</span>
+              Guest Messages ({responses.length})
             </h3>
             <div className="max-h-80 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-primary/10">
               {responses.map((res) => (
