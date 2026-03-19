@@ -11,7 +11,7 @@ export default function Hero({ guestName, onOpen }: { guestName: string; onOpen:
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
       transition={{ duration: 0.8 }}
-      className="fixed inset-0 z-100 flex flex-col items-center justify-center bg-background text-center p-6 transition-colors duration-500"
+      className="absolute inset-0 z-100 flex flex-col items-center justify-center bg-background text-center p-6 transition-colors duration-500"
     >
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-linear-to-b from-black/40 to-black/80 z-10"></div>

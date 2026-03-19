@@ -26,10 +26,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased" suppressHydrationWarning>
-        <MobileContainer>
-          {children}
-          <BottomNav />
-        </MobileContainer>
+        {children}
       </body>
     </html>
   );

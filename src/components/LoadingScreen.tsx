@@ -52,7 +52,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-2000 bg-background flex flex-col items-center justify-center p-8 transition-colors duration-1000"
+      className="absolute inset-0 z-2000 bg-background flex flex-col items-center justify-center p-8 transition-colors duration-1000"
     >
       <div className="relative size-40 flex items-center justify-center">
         <svg className="absolute inset-0 size-40 -rotate-90">
