@@ -2,15 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RSVP, Invitation, PaginatedResponse } from "@/components/admin/types";
 import AdminHeader from "@/components/admin/AdminHeader";
 import InvitationManager from "@/components/admin/InvitationManager";
 import RSVPResults from "@/components/admin/RSVPResults";
+import AdminLogin from "@/components/admin/AdminLogin";
+import { RSVP, Invitation, PaginatedResponse } from "@/components/admin/types";
 
 export default function AdminPage() {
   const [rsvps, setRsvps] = useState<PaginatedResponse<RSVP>>({ data: [], count: 0, totalPages: 0, currentPage: 1 });
   const [invitations, setInvitations] = useState<PaginatedResponse<Invitation>>({ data: [], count: 0, totalPages: 0, currentPage: 1 });
-  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'invitations' | 'rsvp'>('invitations');
 
   // Search/Page states
@@ -48,6 +50,7 @@ export default function AdminPage() {
   };
 
   const fetchData = async () => {
+    if (!isAuthenticated) return;
     setLoading(true);
     await Promise.all([
       fetchInvitations(invitePage, inviteSearch),
@@ -57,17 +60,50 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
-    fetchData();
+    const auth = sessionStorage.getItem("admin_auth");
+    if (auth === "true") {
+      setIsAuthenticated(true);
+    }
   }, []);
 
-  // Sync refreshes on param changes
   useEffect(() => {
-    fetchInvitations(invitePage, inviteSearch);
-  }, [invitePage, inviteSearch]);
+    if (isAuthenticated) {
+      fetchData();
+    }
+  }, [isAuthenticated]);
+
+  // Sync refreshes on param changes
+  const handleLogin = async (password: string) => {
+    try {
+      const res = await fetch("/api/admin/auth", {
+        method: "POST",
+        body: JSON.stringify({ password }),
+        headers: { "Content-Type": "application/json" }
+      });
+      const result = await res.json();
+      if (result.success) {
+        sessionStorage.setItem("admin_auth", "true");
+        setIsAuthenticated(true);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
 
   useEffect(() => {
-    fetchRSVP(rsvpPage, rsvpSearch, rsvpStatus);
-  }, [rsvpPage, rsvpSearch, rsvpStatus]);
+    if (isAuthenticated) {
+      fetchInvitations(invitePage, inviteSearch);
+    }
+  }, [invitePage, inviteSearch, isAuthenticated]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchRSVP(rsvpPage, rsvpSearch, rsvpStatus);
+    }
+  }, [rsvpPage, rsvpSearch, rsvpStatus, isAuthenticated]);
 
   const handleAddInvitation = async (name: string, whatsapp: string) => {
     try {
@@ -93,6 +129,10 @@ export default function AdminPage() {
       console.error(error);
     }
   };
+
+  if (!isAuthenticated) {
+    return <AdminLogin onLogin={handleLogin} />;
+  }
 
   if (loading) {
     return (
