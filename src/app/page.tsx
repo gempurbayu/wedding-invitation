@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import React, { Suspense } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import Countdown from "@/components/Countdown";
@@ -14,8 +14,94 @@ interface RSVPResponse {
   created_at: string;
 }
 
+const CRITICAL_IMAGES = [
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuA8yJ6pa4M5BqKL4VNRDNtVW1OA7RxCcvrSgyYR4ay10SX-W914WsPu6_xzDv-2cKgU7O9XRUKZRGLNCGK1GQ6srZEuiCMQbemxWj9QEwmBviXSM6DgPdeifayzFkxYcYZUHTuSLWkZkZvh9OlhcgBIQ1yET4QqLNIZuNo83Dca3RolWTWezAg-ugxXTK8XNAo-Z6sCCxpL_u3rK3JToWw8BHoCHfufeN5TB2v-D7-O2W_JLvvglGGDb-QM15Oazh3BVWq818rfVk8",
+  "/groom.png",
+  "/bride.png",
+];
+
+function LoadingScreen({ onComplete }: { onComplete: () => void }) {
+  const [percent, setPercent] = useState(0);
+
+  useEffect(() => {
+    let loadedCount = 0;
+    const total = CRITICAL_IMAGES.length;
+
+    if (total === 0) {
+      onComplete();
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      onComplete(); // Failsafe after 5 seconds
+    }, 5000);
+
+    CRITICAL_IMAGES.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        loadedCount++;
+        setPercent(Math.round((loadedCount / total) * 100));
+        if (loadedCount === total) {
+          clearTimeout(timer);
+          setTimeout(onComplete, 500); // Slight delay for smoothness
+        }
+      };
+      img.onerror = () => {
+        loadedCount++;
+        if (loadedCount === total) {
+          clearTimeout(timer);
+          onComplete();
+        }
+      };
+    });
+
+    return () => clearTimeout(timer);
+  }, [onComplete]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[2000] bg-background-light flex flex-col items-center justify-center p-8 transition-colors duration-1000"
+    >
+      <div className="relative size-40 flex items-center justify-center">
+        <svg className="absolute inset-0 size-40 -rotate-90">
+          <circle
+            cx="80"
+            cy="80"
+            r="76"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            fill="transparent"
+            className="text-terracotta/5"
+          />
+          <motion.circle
+            cx="80"
+            cy="80"
+            r="76"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="transparent"
+            strokeDasharray="478"
+            strokeDashoffset={478 - (478 * percent) / 100}
+            strokeLinecap="round"
+            className="text-terracotta transition-all duration-300"
+          />
+        </svg>
+        <div className="text-center space-y-1 z-10">
+          <h2 className="text-primary font-bold italic tracking-tighter text-sm">Loading</h2>
+          <p className="text-terracotta text-lg font-extrabold italic leading-none">Memories</p>
+          <p className="text-primary/20 text-[8px] font-black uppercase tracking-widest">{percent}%</p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 function InvitationContent() {
   const [activeSegment, setActiveSegment] = React.useState("#home");
+  const [isAssetsLoaded, setIsAssetsLoaded] = React.useState(false);
   const [isOpened, setIsOpened] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const audioRef = React.useRef<HTMLAudioElement>(null);
@@ -72,12 +158,17 @@ function InvitationContent() {
 
   return (
     <div className="min-h-screen bg-background-light selection:bg-terracotta/10">
+      <AnimatePresence mode="wait">
+        {!isAssetsLoaded && (
+          <LoadingScreen key="loader" onComplete={() => setIsAssetsLoaded(true)} />
+        )}
+      </AnimatePresence>
+
       {/* BGM AUDIO ELEMENT */}
       <audio ref={audioRef} src="/bgm.mp3" loop />
 
       <AnimatePresence mode="wait">
-        {/* SECTION: OPENING LANDING */}
-        {!isOpened ? (
+        {isAssetsLoaded && !isOpened ? (
           <motion.section 
             key="landing"
             initial={{ opacity: 0 }}
@@ -117,7 +208,7 @@ function InvitationContent() {
               </button>
             </div>
           </motion.section>
-        ) : (
+        ) : isAssetsLoaded && isOpened ? (
           <motion.div 
             key="main-content"
             initial={{ opacity: 0 }}
@@ -187,18 +278,12 @@ function InvitationContent() {
 
             {/* SECTION: COUPLE */}
             <section id="couple" className="py-16">
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-              >
+              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
                 <div className="px-6 text-center mb-12 animate-fade-in">
                   <p className="text-[10px] font-black uppercase tracking-[0.4em] text-terracotta mb-2">The Happy Couple</p>
                   <h2 className="text-primary text-4xl font-extrabold italic">Mempelai</h2>
                   <div className="h-1 w-12 bg-accent mx-auto rounded-full mt-4"></div>
                 </div>
-                {/* ... Couple portraits ... */}
                 <div className="px-6 space-y-12 max-w-sm mx-auto">
                   <div className="text-center space-y-6 animate-fade-in-up">
                     <div className="relative size-56 mx-auto group">
@@ -227,30 +312,20 @@ function InvitationContent() {
               </motion.div>
             </section>
 
-            {/* ... Other sections (Details, Gallery, RSVP, Gift) ... */}
             <section id="details" className="min-h-screen py-16 border-t border-primary/5">
               <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-                <div className="px-6 pb-2 text-center animate-fade-in">
-                  <h2 className="text-primary text-3xl font-extrabold italic mb-2">The Celebration</h2>
-                  <div className="h-1 w-12 bg-accent mx-auto rounded-full"></div>
-                </div>
+                <div className="px-6 pb-2 text-center animate-fade-in"><h2 className="text-primary text-3xl font-extrabold italic mb-2">The Celebration</h2><div className="h-1 w-12 bg-accent mx-auto rounded-full"></div></div>
                 <div className="animate-zoom-in [animation-delay:0.2s]"><Countdown /></div>
                 <div className="px-4 space-y-8 mt-12">
                   <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-primary/5 space-y-4 animate-fade-in-up [animation-delay:0.3s]">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="bg-primary text-white p-2 rounded-lg"><span className="material-symbols-outlined icon-filled">church</span></div>
-                      <h3 className="text-primary text-xl font-bold">Pemberkatan</h3>
-                    </div>
+                    <div className="flex items-center gap-3 mb-2"><div className="bg-primary text-white p-2 rounded-lg"><span className="material-symbols-outlined icon-filled">church</span></div><h3 className="text-primary text-xl font-bold">Pemberkatan</h3></div>
                     <div className="space-y-3">
                       <div className="flex items-start gap-3"><span className="material-symbols-outlined text-primary mt-0.5">schedule</span><div><p className="font-semibold text-primary">2:30 PM — 3:30 PM</p><p className="text-sm text-slate-500 italic text-[10px]">Mohon hadir 15 menit lebih awal</p></div></div>
                       <div className="flex items-start gap-3"><span className="material-symbols-outlined text-primary mt-0.5">location_on</span><div><p className="font-semibold text-primary">St. Mary&apos;s Botanical Garden</p><p className="text-sm text-slate-500">123 Green Valley Road, Ojai, CA</p></div></div>
                     </div>
                   </div>
                   <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-primary/5 space-y-4 animate-fade-in-up [animation-delay:0.4s]">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="bg-terracotta text-white p-2 rounded-lg"><span className="material-symbols-outlined icon-filled">celebration</span></div>
-                      <h3 className="text-primary text-xl font-bold">Acara Resepsi</h3>
-                    </div>
+                    <div className="flex items-center gap-3 mb-2"><div className="bg-terracotta text-white p-2 rounded-lg"><span className="material-symbols-outlined icon-filled">celebration</span></div><h3 className="text-primary text-xl font-bold">Acara Resepsi</h3></div>
                     <div className="space-y-3">
                       <div className="flex items-start gap-3"><span className="material-symbols-outlined text-terracotta mt-0.5">restaurant</span><div><p className="font-semibold text-primary">5:00 PM — 11:00 PM</p><p className="text-sm text-slate-500 italic text-[10px]">Cocktails, Makan Malam & Hiburan</p></div></div>
                       <div className="flex items-start gap-3"><span className="material-symbols-outlined text-terracotta mt-0.5">home_pin</span><div><p className="font-semibold text-primary">St. Mary&apos;s Botanical Garden</p><p className="text-sm text-slate-500">123 Green Valley Road, Ojai, CA</p></div></div>
@@ -267,12 +342,7 @@ function InvitationContent() {
 
             <section id="gallery" className="min-h-screen py-16 bg-sage/5">
               <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}>
-                <div className="px-6 pb-12 text-center animate-fade-in">
-                  <p className="text-[10px] font-black uppercase tracking-[0.4em] text-sage mb-2">Our Moments</p>
-                  <h2 className="text-primary text-3xl font-extrabold italic">Story & Moments</h2>
-                  <div className="h-1 w-12 bg-accent mx-auto rounded-full mt-4"></div>
-                </div>
-                {/* Timeline and Masonry (abbreviated for success) */}
+                <div className="px-6 pb-12 text-center animate-fade-in"><p className="text-[10px] font-black uppercase tracking-[0.4em] text-sage mb-2">Our Moments</p><h2 className="text-primary text-3xl font-extrabold italic">Story & Moments</h2><div className="h-1 w-12 bg-accent mx-auto rounded-full mt-4"></div></div>
                 <div className="px-4 py-8 masonry-grid">
                   {[
                     "https://lh3.googleusercontent.com/aida-public/AB6AXuDSWgyyCvIaT2b8ilZBBLsDCQfMFaBr6r-FqJGYk6163zq-CjteOjNg0yZDMD0ZS_Q_iFhC8NerCLFskuI1rhJ6L1EYuNw9q_LX6UP5Wv8M6j4pML7VHmFOQHi2JZTeExFYudhKZke-F5Vzt8xzoM7ph3MPcJmyUpkJIJuc_QlCeS23bwfCmEahiJrG_ztP2dSLDtUvRX34Ecu9yXwty5Ay8LQIZBYXwGtQb7ufeSmI6Bkl_bg3MHBnKTl_xbhzgqAqYX8OHDEY5HA",
@@ -319,7 +389,7 @@ function InvitationContent() {
             <div className="h-24"></div>
             <BottomNav />
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );
