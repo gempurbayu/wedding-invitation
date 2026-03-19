@@ -14,6 +14,7 @@ import DetailsSection from "@/components/sections/Details";
 import StorySection from "@/components/sections/Story";
 import RSVPSection from "@/components/sections/RSVP";
 import GiftSection from "@/components/sections/Gift";
+import ClosingSection from "@/components/sections/Closing";
 
 interface RSVPResponse {
   id: string;
@@ -161,6 +162,7 @@ function InvitationContent() {
               onSubmit={handleRSVPSubmit}
             />
             <GiftSection />
+            <ClosingSection />
 
             <div className="h-24"></div>
             <BottomNav />
