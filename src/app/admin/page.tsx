@@ -18,6 +18,7 @@ export default function AdminPage() {
   const [invitePage, setInvitePage] = useState(1);
   const [rsvpSearch, setRsvpSearch] = useState("");
   const [rsvpPage, setRsvpPage] = useState(1);
+  const [rsvpStatus, setRsvpStatus] = useState<string>("all");
 
   // Base URL for links
   const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
@@ -32,9 +33,13 @@ export default function AdminPage() {
     }
   };
 
-  const fetchRSVP = async (page = 1, search = "") => {
+  const fetchRSVP = async (page = 1, search = "", status = "all") => {
     try {
-      const res = await fetch(`/api/rsvp?page=${page}&limit=10&search=${encodeURIComponent(search)}`);
+      let url = `/api/rsvp?page=${page}&limit=10&search=${encodeURIComponent(search)}`;
+      if (status !== "all") {
+        url += `&attending=${status}`;
+      }
+      const res = await fetch(url);
       const result = await res.json();
       setRsvps(result);
     } catch (error) {
@@ -46,7 +51,7 @@ export default function AdminPage() {
     setLoading(true);
     await Promise.all([
       fetchInvitations(invitePage, inviteSearch),
-      fetchRSVP(rsvpPage, rsvpSearch)
+      fetchRSVP(rsvpPage, rsvpSearch, rsvpStatus)
     ]);
     setLoading(false);
   };
@@ -61,8 +66,8 @@ export default function AdminPage() {
   }, [invitePage, inviteSearch]);
 
   useEffect(() => {
-    fetchRSVP(rsvpPage, rsvpSearch);
-  }, [rsvpPage, rsvpSearch]);
+    fetchRSVP(rsvpPage, rsvpSearch, rsvpStatus);
+  }, [rsvpPage, rsvpSearch, rsvpStatus]);
 
   const handleAddInvitation = async (name: string, whatsapp: string) => {
     try {
@@ -140,6 +145,8 @@ export default function AdminPage() {
               onPageChange={setRsvpPage}
               onSearchChange={setRsvpSearch}
               searchQuery={rsvpSearch}
+              statusFilter={rsvpStatus}
+              onStatusChange={setRsvpStatus}
             />
           )}
         </motion.div>

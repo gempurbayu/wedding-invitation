@@ -35,6 +35,7 @@ export async function GET(request: Request) {
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const search = searchParams.get('search') || '';
+    const attending = searchParams.get('attending');
 
     const from = (page - 1) * limit;
     const to = from + limit - 1;
@@ -45,6 +46,12 @@ export async function GET(request: Request) {
 
     if (search) {
       query = query.ilike('name', `%${search}%`);
+    }
+
+    if (attending === 'true') {
+      query = query.eq('attending', true);
+    } else if (attending === 'false') {
+      query = query.eq('attending', false);
     }
 
     const { data, error, count } = await query

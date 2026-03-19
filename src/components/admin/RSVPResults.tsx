@@ -1,3 +1,4 @@
+import React from "react";
 import { RSVP, PaginatedResponse } from "./types";
 
 interface Props {
@@ -5,9 +6,11 @@ interface Props {
   onPageChange: (page: number) => void;
   onSearchChange: (search: string) => void;
   searchQuery: string;
+  statusFilter: string;
+  onStatusChange: (status: string) => void;
 }
 
-export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searchQuery }: Props) {
+export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searchQuery, statusFilter, onStatusChange }: Props) {
   // Server-side values
   const { data: currentItems, totalPages, currentPage, count: totalItems } = rsvps;
   const itemsPerPage = 10;
@@ -20,16 +23,32 @@ export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searc
           <h2 className="text-2xl font-bold italic text-white">RSVP Responses</h2>
         </div>
 
-        {/* Search Input */}
-        <div className="relative w-full md:w-80">
-          <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">search</span>
-          <input 
-            type="text"
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Search by name..."
-            className="w-full bg-zinc-900 border border-white/5 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-white/20 transition-all outline-none text-white selection:bg-white/10"
-          />
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Status Filter */}
+          <div className="relative group">
+            <select 
+              value={statusFilter}
+              onChange={(e) => onStatusChange(e.target.value)}
+              className="appearance-none bg-zinc-900 border border-white/5 rounded-xl pl-4 pr-10 py-2.5 text-sm focus:ring-2 focus:ring-white/20 transition-all outline-none text-white cursor-pointer hover:bg-white/5"
+            >
+              <option value="all">All Status</option>
+              <option value="true">Attending</option>
+              <option value="false">Not Attending</option>
+            </select>
+            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none text-sm group-hover:text-white transition-colors">expand_more</span>
+          </div>
+
+          {/* Search Input */}
+          <div className="relative w-full md:w-64">
+            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">search</span>
+            <input 
+              type="text"
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              placeholder="Search by name..."
+              className="w-full bg-zinc-900 border border-white/5 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-white/20 transition-all outline-none text-white selection:bg-white/10"
+            />
+          </div>
         </div>
       </div>
 
@@ -45,7 +64,7 @@ export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searc
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
-              {currentItems.map((rsvp) => (
+              {currentItems.map((rsvp: RSVP) => (
                 <tr key={rsvp.id} className="hover:bg-white/5 transition-colors">
                   <td className="px-6 py-4 font-bold text-white">{rsvp.name}</td>
                   <td className="px-6 py-4">
