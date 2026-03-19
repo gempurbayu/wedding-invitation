@@ -342,7 +342,34 @@ function InvitationContent() {
 
             <section id="gallery" className="min-h-screen py-16 bg-sage/5">
               <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}>
-                <div className="px-6 pb-12 text-center animate-fade-in"><p className="text-[10px] font-black uppercase tracking-[0.4em] text-sage mb-2">Our Moments</p><h2 className="text-primary text-3xl font-extrabold italic">Story & Moments</h2><div className="h-1 w-12 bg-accent mx-auto rounded-full mt-4"></div></div>
+                <div className="px-6 pb-12 text-center animate-fade-in">
+                  <p className="text-[10px] font-black uppercase tracking-[0.4em] text-sage mb-2">Our Moments</p>
+                  <h2 className="text-primary text-3xl font-extrabold italic">Story & Moments</h2>
+                  <div className="h-1 w-12 bg-accent mx-auto rounded-full mt-4"></div>
+                </div>
+
+                {/* Story Timeline */}
+                <div className="px-8 pb-16 space-y-12 relative max-w-lg mx-auto border-b border-primary/5">
+                  <div className="absolute left-10 top-8 bottom-8 w-0.5 border-l-2 border-dashed border-primary/20"></div>
+                  {[
+                    { date: "Summer 2020", title: "First Meeting", desc: "A chance encounter at a local coffee shop that changed everything.", icon: "coffee_maker", color: "bg-sage" },
+                    { date: "Winter 2021", title: "The First Date", desc: "An evening walk under the city lights that felt like a lifetime.", icon: "favorite", color: "bg-primary" },
+                    { date: "Spring 2023", title: "The Proposal", desc: "On a quiet hilltop at sunset, she said 'Yes' to forever.", icon: "auto_awesome", color: "bg-terracotta" },
+                    { date: "August 2026", title: "Our Wedding", desc: "The beginning of our new chapter as Mr. & Mrs.", icon: "celebration", color: "bg-accent" }
+                  ].map((step, i) => (
+                    <div key={i} className="relative flex items-start gap-8 group animate-fade-in-up" style={{ animationDelay: `${i * 0.2}s` }}>
+                      <div className={`relative z-10 size-12 rounded-full ${step.color} text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform ring-4 ring-background-light`}>
+                        <span className="material-symbols-outlined text-xl">{step.icon}</span>
+                      </div>
+                      <div className="flex-1 pt-1">
+                        <p className="text-xs font-black text-primary/60 uppercase tracking-widest mb-1">{step.date}</p>
+                        <h4 className="text-lg font-bold text-primary mb-2">{step.title}</h4>
+                        <p className="text-sm text-primary/60 leading-relaxed italic">&quot;{step.desc}&quot;</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
                 <div className="px-4 py-8 masonry-grid">
                   {[
                     "https://lh3.googleusercontent.com/aida-public/AB6AXuDSWgyyCvIaT2b8ilZBBLsDCQfMFaBr6r-FqJGYk6163zq-CjteOjNg0yZDMD0ZS_Q_iFhC8NerCLFskuI1rhJ6L1EYuNw9q_LX6UP5Wv8M6j4pML7VHmFOQHi2JZTeExFYudhKZke-F5Vzt8xzoM7ph3MPcJmyUpkJIJuc_QlCeS23bwfCmEahiJrG_ztP2dSLDtUvRX34Ecu9yXwty5Ay8LQIZBYXwGtQb7ufeSmI6Bkl_bg3MHBnKTl_xbhzgqAqYX8OHDEY5HA",
@@ -358,9 +385,19 @@ function InvitationContent() {
 
             <section id="rsvp" className="min-h-screen py-16 bg-white/20">
               <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-                <div className="px-6 pb-8 text-center text-primary animate-fade-in"><h2 className="text-3xl font-extrabold italic mb-2">Join Our Story</h2><p className="text-primary/60 text-sm font-medium italic">Please let us know if you can make it</p></div>
+                <div className="px-6 pb-8 text-center text-primary animate-fade-in">
+                  <h2 className="text-3xl font-extrabold italic mb-2">Join Our Story</h2>
+                  <p className="text-primary/60 text-sm font-medium italic">Please let us know if you can make it</p>
+                </div>
                 {isSubmitted ? (
-                  <div className="px-6 py-12 text-center space-y-4 animate-zoom-in"><div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce"><span className="material-symbols-outlined text-4xl text-primary icon-filled">check_circle</span></div><h3 className="text-2xl font-bold text-primary italic">Terima Kasih!</h3><p className="text-primary/60 italic text-sm">Konfirmasi Anda telah kami terima.</p><button onClick={() => setIsSubmitted(false)} className="text-primary font-bold text-xs underline underline-offset-4 pt-4">Kirim pesan lain</button></div>
+                  <div className="px-6 py-12 text-center space-y-4 animate-zoom-in">
+                    <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+                      <span className="material-symbols-outlined text-4xl text-primary icon-filled">check_circle</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-primary italic">Terima Kasih!</h3>
+                    <p className="text-primary/60 italic text-sm">Konfirmasi Anda telah kami terima.</p>
+                    <button onClick={() => setIsSubmitted(false)} className="text-primary font-bold text-xs underline underline-offset-4 pt-4">Kirim pesan lain</button>
+                  </div>
                 ) : (
                   <form className="px-6 space-y-6 max-w-sm mx-auto animate-fade-in-up [animation-delay:0.2s]" onSubmit={async (e) => { e.preventDefault(); if (!rsvpName || isAttending === null) return; setIsSubmitting(true); try { const res = await fetch('/api/rsvp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: rsvpName, attending: isAttending, message: rsvpMessage }) }); if (res.ok) { setIsSubmitted(true); setRsvpMessage(""); fetchResponses(); } } catch (error) { console.error(error); } finally { setIsSubmitting(false); } }}>
                     <div className="space-y-2"><label className="text-sm font-bold text-primary">Full Name</label><input type="text" required value={rsvpName} onChange={(e) => setRsvpName(e.target.value)} className="w-full h-14 bg-white/40 border border-primary/10 rounded-xl px-4 outline-none transition-all placeholder:italic" placeholder="Enter your guest name" /></div>
@@ -371,16 +408,65 @@ function InvitationContent() {
                     </button>
                   </form>
                 )}
+
+                {/* List of Messages */}
+                {responses.length > 0 && (
+                  <div className="mt-12 px-6 max-w-sm mx-auto space-y-4 animate-fade-in-up">
+                    <h3 className="text-primary font-bold italic border-b border-primary/5 pb-2 text-sm flex items-center gap-2">
+                       <span className="material-symbols-outlined text-sm">chat_bubble</span>
+                       Guest Messages ({responses.length})
+                    </h3>
+                    <div className="max-h-80 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-primary/10">
+                      {responses.map((res) => (
+                        <div key={res.id} className="bg-white/40 p-4 rounded-xl shadow-sm border border-primary/5 space-y-1">
+                          <div className="flex justify-between items-center">
+                            <span className="text-primary font-bold text-xs">{res.name}</span>
+                            <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${res.attending ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                              {res.attending ? 'Attending' : 'Can\'t come'}
+                            </span>
+                          </div>
+                          <p className="text-sm text-primary/70 italic leading-relaxed">&quot;{res.message}&quot;</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </motion.div>
             </section>
 
-            <section id="gift" className="min-h-screen py-16 bg-primary text-white">
+            <section id="gift" className="min-h-screen py-16 bg-primary text-white text-center">
               <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-                <div className="px-8 pb-12 text-center animate-fade-in"><span className="material-symbols-outlined text-5xl mb-4 icon-filled opacity-80 animate-bounce">featured_seasonal_and_gifts</span><h2 className="text-3xl font-black italic mb-4">Wedding Gift</h2></div>
-                <div className="px-6 space-y-6">
+                <div className="px-8 pb-12 text-center animate-fade-in">
+                  <span className="material-symbols-outlined text-5xl mb-4 icon-filled opacity-80 animate-bounce">featured_seasonal_and_gifts</span>
+                  <h2 className="text-3xl font-black italic mb-4">Wedding Gift</h2>
+                  <p className="text-white/60 text-sm italic max-w-xs mx-auto">Doa restu Anda merupakan kado terindah bagi kami. Namun jika Anda ingin memberikan tanda kasih, Anda dapat memberikannya melalui:</p>
+                </div>
+                <div className="px-6 space-y-6 max-w-sm mx-auto">
                   <div className="bg-white/90 rounded-3xl p-8 text-primary shadow-2xl relative overflow-hidden animate-zoom-in [animation-delay:0.3s]">
-                    <div className="mb-8"><p className="text-primary font-mono text-2xl font-bold tracking-tighter">8820 4491 300</p><p className="text-[10px] uppercase font-black text-primary/40 mt-1">Aris & Maya</p></div>
-                    <button className="w-full h-12 bg-primary text-white rounded-xl font-bold">Copy Account Number</button>
+                    <div className="mb-8">
+                      <p className="text-[10px] uppercase font-black text-primary/40 mb-1">Transfer Bank</p>
+                      <p className="text-primary font-mono text-2xl font-bold tracking-tighter">8820 4491 300</p>
+                      <p className="text-xs font-bold text-primary mt-1">Bank BCA - Aris & Maya</p>
+                    </div>
+                    <button 
+                      onClick={() => navigator.clipboard.writeText('88204491300')}
+                      className="w-full h-12 bg-primary text-white rounded-xl font-bold active:scale-95 transition-transform"
+                    >
+                      Copy Account Number
+                    </button>
+                  </div>
+
+                  <div className="bg-white/90 rounded-3xl p-8 text-primary shadow-2xl relative overflow-hidden animate-zoom-in [animation-delay:0.4s]">
+                    <div className="flex flex-col items-center gap-6">
+                      <div className="size-48 bg-white p-2 rounded-2xl shadow-inner border border-primary/5">
+                        <img 
+                          src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=WeddingGiftArisMaya" 
+                          alt="QRIS" 
+                          className="w-full h-full object-contain" 
+                        />
+                      </div>
+                      <p className="text-[10px] uppercase font-black text-primary/40 text-center">Scan QRIS for Digital Gift</p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
