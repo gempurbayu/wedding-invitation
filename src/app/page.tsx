@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import React, { Suspense } from "react";
 import BottomNav from "@/components/BottomNav";
+import Countdown from "@/components/Countdown";
 
 function InvitationContent() {
   const [activeSegment, setActiveSegment] = React.useState("#home");
@@ -167,6 +168,10 @@ function InvitationContent() {
               </div>
             </div>
 
+            <div className="flex justify-center py-4">
+              <span className="material-symbols-outlined text-5xl text-accent/40 italic animate-bounce">favorite</span>
+            </div>
+
             {/* Maya */}
             <div className="text-center space-y-6">
               <div className="relative size-56 mx-auto">
@@ -189,26 +194,28 @@ function InvitationContent() {
 
         {/* SECTION: DETAILS */}
         <section id="details" className="min-h-screen py-16 border-t border-primary/5">
-          <div className="px-6 pb-8 text-center">
+          <div className="px-6 pb-2 text-center">
             <h2 className="text-primary text-3xl font-extrabold italic mb-2">The Celebration</h2>
             <div className="h-1 w-12 bg-accent mx-auto rounded-full"></div>
           </div>
 
+          <Countdown />
+
           <div className="px-4 space-y-8">
-            {/* Ceremony Card */}
+            {/* Pemberkatan Card */}
             <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-primary/5 space-y-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="bg-primary text-white p-2 rounded-lg">
-                  <span className="material-symbols-outlined icon-filled">favorite</span>
+                  <span className="material-symbols-outlined icon-filled">church</span>
                 </div>
-                <h3 className="text-primary text-xl font-bold">The Ceremony</h3>
+                <h3 className="text-primary text-xl font-bold">Pemberkatan</h3>
               </div>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <span className="material-symbols-outlined text-primary mt-0.5">schedule</span>
                   <div>
                     <p className="font-semibold text-primary">2:30 PM — 3:30 PM</p>
-                    <p className="text-sm text-slate-500">Please arrive 15 minutes early</p>
+                    <p className="text-sm text-slate-500">Mohon hadir 15 menit lebih awal</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -219,40 +226,82 @@ function InvitationContent() {
                   </div>
                 </div>
               </div>
-              <div
-                className="w-full h-40 rounded-xl overflow-hidden border border-primary/10 bg-center bg-cover"
-                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuASQiJNcM68sNMQg_eiTyvk3pMvJodZYb8szo3Chl8lQ1d2ewAqszLgo7X4juick4WdGupKliS5E_gi5wpamt1mnIIQLQP_L-XZdiRcvY5lgob42N9-okcb-uY4bGByA7Xm3sjmFf3vzScf1NG7AfLZT4VMt3uH0ZciOq-c2OuNGV-_pavJ77Us2idNIE6EYiq9qPEgz_FkMUK2mnBFGqx-cTvX74VMnJXiBTCOIiQzK7UeYtqeuWCboyHpw9fmvD-4C1BU-BDwwfw')" }}
-              ></div>
             </div>
 
-            {/* Reception Card */}
+            {/* Adat Card */}
             <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-primary/5 space-y-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="bg-terracotta text-white p-2 rounded-lg">
                   <span className="material-symbols-outlined icon-filled">celebration</span>
                 </div>
-                <h3 className="text-primary text-xl font-bold">The Reception</h3>
+                <h3 className="text-primary text-xl font-bold">Acara Resepsi</h3>
               </div>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <span className="material-symbols-outlined text-terracotta mt-0.5">restaurant</span>
                   <div>
                     <p className="font-semibold text-primary">5:00 PM — 11:00 PM</p>
-                    <p className="text-sm text-slate-500">Cocktails, Dinner & Dancing</p>
+                    <p className="text-sm text-slate-500">Cocktails, Makan Malam & Hiburan</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="material-symbols-outlined text-terracotta mt-0.5">home_pin</span>
                   <div>
-                    <p className="font-semibold text-primary">The Sunset Pavilion</p>
-                    <p className="text-sm text-slate-500">456 Shoreline Dr, Santa Barbara, CA</p>
+                    <p className="font-semibold text-primary">St. Mary&apos;s Botanical Garden</p>
+                    <p className="text-sm text-slate-500">123 Green Valley Road, Ojai, CA</p>
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Shared Location Card */}
+            <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-primary/5 space-y-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="bg-accent text-white p-2 rounded-lg">
+                  <span className="material-symbols-outlined icon-filled">map</span>
+                </div>
+                <h3 className="text-primary text-xl font-bold">Lokasi Acara</h3>
+              </div>
               <div
-                className="w-full h-40 rounded-xl overflow-hidden border border-primary/10 bg-center bg-cover"
+                className="w-full h-48 rounded-xl overflow-hidden border border-primary/10 bg-center bg-cover"
                 style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAzYLRYN6Wr5uyUiUDPf3XjpOcK7Kf3yu1KLvfQEHFXJjFUBsdAZ5YNpGTpUn9Sle-xDrxdAFZvk71mSMO0rQRFHlFLo-BRKIzNKtaEo2gbTw90jMgagJjZ-G_YyeWK6wp-eH49AgycbDCWgFcduOFY_aCqxsPKaZtikwEeqgWU4ZkL408q-mNuB4lHIi_Ice71_7NbWV9MoipN0QA9KCA_2h3tS82cgWGeb-IcMvATyAEYHl6bdO8KwI2_qyAR_29JLOj29RjXqUc')" }}
               ></div>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=St.+Mary%27s+Botanical+Garden"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-primary text-white h-14 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+              >
+                <span className="material-symbols-outlined">directions</span>
+                Buka di Google Maps
+              </a>
+            </div>
+
+            {/* Dresscode Card */}
+            <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-primary/5 space-y-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="bg-sage text-white p-2 rounded-lg">
+                  <span className="material-symbols-outlined icon-filled">checkroom</span>
+                </div>
+                <h3 className="text-primary text-xl font-bold">Dresscode</h3>
+              </div>
+              <p className="text-slate-500 text-sm leading-relaxed text-center">
+                Kami sangat menghargai kehadiran Anda dalam balutan busana bernuansa <span className="font-bold text-primary italic">Rustic & Earthy</span>.
+              </p>
+              <div className="flex justify-center gap-3 py-2">
+                {[
+                  { color: "bg-sage", name: "Sage" },
+                  { color: "bg-terracotta", name: "Terracotta" },
+                  { color: "bg-tan", name: "Tan" },
+                  { color: "bg-chocolate", name: "Brown" },
+                  { color: "bg-ivory", name: "Ivory" },
+                ].map((item) => (
+                  <div key={item.name} className="flex flex-col items-center gap-2">
+                    <div className={`${item.color} size-10 rounded-full shadow-inner border border-black/5`} />
+                    <span className="text-[10px] font-black uppercase tracking-tighter text-primary/60">{item.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
