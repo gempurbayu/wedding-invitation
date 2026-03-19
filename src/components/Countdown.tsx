@@ -48,7 +48,7 @@ export default function Countdown() {
     <div className="flex justify-center gap-4 py-8">
       {items.map((item) => (
         <div key={item.label} className="flex flex-col items-center">
-          <div className="bg-white/60 backdrop-blur-sm w-16 h-16 rounded-xl flex items-center justify-center shadow-lg border border-primary/5">
+          <div className="bg-primary/10 backdrop-blur-sm w-16 h-16 rounded-xl flex items-center justify-center shadow-lg border border-primary/5 transition-colors duration-500">
             <span className="text-primary text-2xl font-black tabular-nums">{item.value}</span>
           </div>
           <p className="text-[10px] font-black uppercase tracking-widest text-primary/60 mt-2">{item.label}</p>

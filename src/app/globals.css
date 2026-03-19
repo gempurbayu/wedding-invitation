@@ -1,15 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #704214;
-  --color-terracotta: #b87333;
-  --color-sage: #8a9a5b;
-  --color-tan: #d2b48c;
-  --color-chocolate: #8b4513;
-  --color-ivory: #fffff0;
-  --color-background-light: #f2e8dc;
-  --color-background-dark: #f2e8dc; /* Unified with light */
-  --color-beige-muted: #e8dfd0;
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  /* Legacy/Alias mappings for compatibility if needed */
+  --color-terracotta: var(--secondary);
+  --color-sage: var(--accent);
+  --color-background-light: var(--background);
+  --color-background-dark: var(--background);
   
   --font-display: "Plus Jakarta Sans", sans-serif;
   
@@ -18,6 +20,7 @@
 
   --z-index-100: 100;
   --z-index-1000: 1000;
+  --z-index-2000: 2000;
 
   @keyframes fade-in-up {
     from {
@@ -46,22 +49,26 @@
 }
 
 :root {
-  --background: #f2e8dc;
-  --foreground: #4a3728;
+  --background: #ffffff;
+  --foreground: #000000;
+  --primary: #000000;
+  --secondary: #3f3f46; /* zinc-700 */
+  --accent: #a1a1aa;    /* zinc-400 */
 }
 
-/* Unified Theme: Light and Dark modes are the same */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #f2e8dc;
-    --foreground: #4a3728;
-  }
+[data-theme='dark'] {
+  --background: #09090b; /* zinc-950 */
+  --foreground: #fafafa; /* zinc-50 */
+  --primary: #ffffff;
+  --secondary: #d4d4d8; /* zinc-300 */
+  --accent: #52525b;    /* zinc-600 */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-display);
+  transition: background-color 0.5s ease, color 0.5s ease;
   @apply antialiased;
 }
 

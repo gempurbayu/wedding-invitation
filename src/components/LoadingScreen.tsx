@@ -52,7 +52,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[2000] bg-background-light flex flex-col items-center justify-center p-8 transition-colors duration-1000"
+      className="fixed inset-0 z-2000 bg-background flex flex-col items-center justify-center p-8 transition-colors duration-1000"
     >
       <div className="relative size-40 flex items-center justify-center">
         <svg className="absolute inset-0 size-40 -rotate-90">
@@ -63,7 +63,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             stroke="currentColor"
             strokeWidth="1.5"
             fill="transparent"
-            className="text-terracotta/5"
+            className="text-primary/5"
           />
           <motion.circle
             cx="80"
@@ -75,12 +75,12 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             strokeDasharray="478"
             strokeDashoffset={478 - (478 * percent) / 100}
             strokeLinecap="round"
-            className="text-terracotta transition-all duration-300"
+            className="text-primary transition-all duration-300"
           />
         </svg>
         <div className="text-center space-y-1 z-10">
           <h2 className="text-primary font-bold italic tracking-tighter text-sm">Loading</h2>
-          <p className="text-terracotta text-lg font-extrabold italic leading-none">Memories</p>
+          <p className="text-primary text-lg font-extrabold italic leading-none opacity-60">Memories</p>
           <p className="text-primary/20 text-[8px] font-black uppercase tracking-widest">{percent}%</p>
         </div>
       </div>

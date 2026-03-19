@@ -31,15 +31,15 @@ export default function HomeSection() {
 
         <div className="px-6 py-8 text-center space-y-8 animate-fade-in-up [animation-delay:0.5s]">
           <div className="space-y-2">
-            <h2 className="text-terracotta text-2xl font-bold tracking-tight">August 24th, 2026</h2>
-            <p className="text-sage font-medium italic">At The Whispering Pines Estate</p>
+            <h2 className="text-primary text-2xl font-bold tracking-tight uppercase">August 24th, 2026</h2>
+            <p className="text-primary/60 font-medium italic">At The Whispering Pines Estate</p>
           </div>
           <div className="flex flex-col gap-3 max-w-sm mx-auto">
             <a
               href="https://www.google.com/calendar/render?action=TEMPLATE&text=Aris+%26+Maya+Wedding&dates=20260824T143000/20260824T230000&details=Join+us+for+our+special+day!+Ceremony+at+2:30+PM,+Reception+at+5:00+PM.&location=St.+Mary's+Botanical+Garden,+Ojai,+CA"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-primary/20 transition-all text-center flex items-center justify-center gap-2 hover:scale-[1.02]"
+              className="w-full bg-primary hover:bg-primary/90 text-background py-4 rounded-xl font-bold text-lg shadow-lg shadow-primary/10 transition-all text-center flex items-center justify-center gap-2 hover:scale-[1.02]"
             >
               <span className="material-symbols-outlined text-xl">calendar_add_on</span>
               Save to Google Calendar
@@ -47,22 +47,22 @@ export default function HomeSection() {
           </div>
 
           {/* Animated Scroll Down indicator */}
-          <div className="flex flex-col items-center gap-3 pt-4 opacity-30 animate-fade-in [animation-delay:1s]">
-            <div className="w-[20px] h-[32px] border-2 border-primary rounded-full flex justify-center p-1.5">
-              <motion.div 
-                animate={{ 
+          <div className="flex flex-col items-center gap-3 pt-4 opacity-40 animate-fade-in [animation-delay:1s]">
+            <div className="w-[20px] h-[32px] border-2 border-primary/20 rounded-full flex justify-center p-1.5">
+              <motion.div
+                animate={{
                   y: [0, 8, 0],
                   opacity: [1, 0.2, 1]
                 }}
-                transition={{ 
-                  duration: 2, 
+                transition={{
+                  duration: 2,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
                 className="w-[3px] h-[6px] bg-primary rounded-full"
               />
             </div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Scroll Down</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/40">Scroll Down</p>
           </div>
         </div>
       </motion.div>

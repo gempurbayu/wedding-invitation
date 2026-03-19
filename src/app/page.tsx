@@ -15,6 +15,7 @@ import StorySection from "@/components/sections/Story";
 import RSVPSection from "@/components/sections/RSVP";
 import GiftSection from "@/components/sections/Gift";
 import ClosingSection from "@/components/sections/Closing";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface RSVPResponse {
   id: string;
@@ -29,7 +30,7 @@ function InvitationContent() {
   const [isOpened, setIsOpened] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  
+
   const searchParams = useSearchParams();
   const guestName = searchParams.get("to") || "Tamu Undangan";
 
@@ -109,7 +110,7 @@ function InvitationContent() {
   };
 
   return (
-    <div className="min-h-screen bg-background-light selection:bg-terracotta/10 overflow-x-hidden">
+    <div className="min-h-screen bg-background selection:bg-primary/10 overflow-x-hidden transition-colors duration-500">
       <AnimatePresence mode="wait">
         {!isAssetsLoaded && (
           <LoadingScreen key="loader" onComplete={() => setIsAssetsLoaded(true)} />
@@ -122,24 +123,27 @@ function InvitationContent() {
         {isAssetsLoaded && !isOpened ? (
           <Hero guestName={guestName} onOpen={() => setIsOpened(true)} />
         ) : isAssetsLoaded && isOpened ? (
-          <motion.div 
+          <motion.div
             key="main-content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="flex h-auto w-full flex-col relative"
           >
-            {/* Music Controls */}
-            <div className="fixed bottom-36 left-1/2 -translate-x-1/2 w-full max-w-md z-100 pointer-events-none">
+            {/* Floating Controls */}
+            <div className="fixed bottom-52 left-1/2 -translate-x-1/2 w-full max-w-md z-100 pointer-events-none">
               <div className="relative w-full h-0">
-                <button
-                  onClick={toggleMusic}
-                  className="absolute right-4 top-0 size-10 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white flex items-center justify-center shadow-lg transition-transform active:scale-90 pointer-events-auto animate-zoom-in"
-                >
-                  <span className={`material-symbols-outlined text-xl text-terracotta ${isPlaying ? 'animate-pulse' : ''}`}>
-                    {isPlaying ? 'music_note' : 'music_off'}
-                  </span>
-                </button>
+                <div className="absolute right-4 top-0 flex flex-col gap-3 pointer-events-auto">
+                  <ThemeToggle />
+                  <button
+                    onClick={toggleMusic}
+                    className="size-10 bg-primary/20 backdrop-blur-md rounded-full border border-primary/20 text-primary flex items-center justify-center shadow-lg transition-transform active:scale-90 animate-zoom-in"
+                  >
+                    <span className={`material-symbols-outlined text-xl ${isPlaying ? 'animate-pulse' : ''}`}>
+                      {isPlaying ? 'music_note' : 'music_off'}
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -147,7 +151,7 @@ function InvitationContent() {
             <CoupleSection />
             <DetailsSection />
             <StorySection />
-            <RSVPSection 
+            <RSVPSection
               guestName={guestName}
               rsvpName={rsvpName}
               setRsvpName={setRsvpName}
@@ -176,8 +180,8 @@ function InvitationContent() {
 export default function Home() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-background-light animate-pulse flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-terracotta border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen bg-background animate-pulse flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
       </div>
     }>
       <InvitationContent />
