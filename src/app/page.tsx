@@ -10,7 +10,7 @@ interface RSVPResponse {
   name: string;
   attending: boolean;
   message: string;
-  timestamp: string;
+  created_at: string;
 }
 
 function InvitationContent() {
@@ -33,7 +33,7 @@ function InvitationContent() {
       const res = await fetch('/api/rsvp');
       if (res.ok) {
         const data = await res.json();
-        setResponses(data.sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
+        setResponses(data.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
       }
     } catch (error) {
       console.error("Failed to fetch RSVPs:", error);
@@ -541,7 +541,7 @@ function InvitationContent() {
                         )}
                       </h4>
                       <span className="text-[10px] text-primary/40 font-medium whitespace-nowrap">
-                        {new Date(resp.timestamp).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+                        {new Date(resp.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
                       </span>
                     </div>
                     <p className="text-primary/70 text-sm leading-relaxed italic">&quot;{resp.message || "Tanpa pesan."}&quot;</p>
