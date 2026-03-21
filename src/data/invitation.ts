@@ -82,16 +82,16 @@ export const invitationData = {
       "/photos/DSC06608.webp"
     ],
     carouselImages: [
-      "/photos/DSC06690.webp",
-      "/photos/DSC06746.webp",
-      "/photos/DSC06597.webp",
-      "/photos/DSC06793.webp",
-      "/photos/DSC06838.webp",
-      "/photos/DSC06888.webp",
-      "/photos/DSC06891.webp",
-      "/photos/DSC06900.webp",
-      "/photos/DSC06902.webp",
-      "/photos/DSC06933.webp"
+      { src: "/photos/DSC06690.webp" },
+      { src: "/photos/DSC06746.webp" },
+      { src: "/photos/DSC06597.webp" },
+      { src: "/photos/DSC06793.webp" },
+      { src: "/photos/DSC06838.webp", position: "object-right" },
+      { src: "/photos/DSC06888.webp" },
+      { src: "/photos/DSC06891.webp" },
+      { src: "/photos/DSC06900.webp", position: "object-bottom" },
+      { src: "/photos/DSC06902.webp", position: "object-bottom" },
+      { src: "/photos/DSC06933.webp" }
     ]
   }
 };

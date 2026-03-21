@@ -21,17 +21,18 @@ export default function StorySection() {
             const icons = ["coffee_maker", "favorite", "auto_awesome", "celebration"];
             const colors = ["bg-primary/20", "bg-primary/40", "bg-primary/60", "bg-primary"];
             return (
-            <div key={i} className="relative flex items-start gap-8 group animate-fade-in-up" style={{ animationDelay: `${i * 0.2}s` }}>
-              <div className={`relative z-10 size-12 rounded-full ${colors[i]} text-background flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform ring-4 ring-background`}>
-                <span className="material-symbols-outlined text-xl">{icons[i]}</span>
+              <div key={i} className="relative flex items-start gap-8 group animate-fade-in-up" style={{ animationDelay: `${i * 0.2}s` }}>
+                <div className={`relative z-10 size-12 rounded-full ${colors[i]} text-background flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform ring-4 ring-background`}>
+                  <span className="material-symbols-outlined text-xl">{icons[i]}</span>
+                </div>
+                <div className="flex-1 pt-1">
+                  <p className="text-xs font-black text-primary/60 uppercase tracking-widest mb-1">{step.year}</p>
+                  <h4 className="text-lg font-bold text-primary mb-2">{step.title}</h4>
+                  <p className="text-sm text-primary/60 leading-relaxed italic">&quot;{step.description}&quot;</p>
+                </div>
               </div>
-              <div className="flex-1 pt-1">
-                <p className="text-xs font-black text-primary/60 uppercase tracking-widest mb-1">{step.year}</p>
-                <h4 className="text-lg font-bold text-primary mb-2">{step.title}</h4>
-                <p className="text-sm text-primary/60 leading-relaxed italic">&quot;{step.description}&quot;</p>
-              </div>
-            </div>
-          )})}
+            )
+          })}
         </div>
 
         <div className="px-4 py-8 grid grid-cols-2 gap-4">
@@ -61,9 +62,9 @@ export default function StorySection() {
             </div>
           </div>
           <div className="flex overflow-x-auto gap-4 px-6 pb-4 no-scrollbar snap-x snap-mandatory scroll-smooth">
-            {invitationData.gallery.carouselImages.map((src, i) => (
-              <div key={i} className="w-80 flex-shrink-0 h-64 rounded-2xl overflow-hidden shadow-xl border border-primary/10 snap-center transition-all duration-300 hover:scale-[1.02]">
-                <img src={src} alt="Gallery Carousel" className="w-full h-full object-cover object-center" />
+            {invitationData.gallery.carouselImages.map((image, i) => (
+              <div key={i} className="w-80 flex-shrink-0 h-72 rounded-2xl overflow-hidden shadow-xl border border-primary/10 snap-center transition-all duration-300 hover:scale-[1.02]">
+                <img src={image.src} alt="Gallery Carousel" className={`w-full h-full object-cover ${image.position || 'object-center'}`} />
               </div>
             ))}
           </div>
