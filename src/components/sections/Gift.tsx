@@ -2,9 +2,10 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { invitationData } from "@/data/invitation";
 
 export default function GiftSection() {
-  const accountNumber = "7750 9748 69";
+  const accountNumber = invitationData.gift.accountNumber;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(accountNumber.replace(/\s/g, ""));
@@ -12,7 +13,7 @@ export default function GiftSection() {
   };
 
   return (
-    <section id="gift" className="min-h-screen py-16 bg-primary text-background text-center transition-colors duration-500">
+    <section id="gift" className=" py-16 bg-primary text-background text-center transition-colors duration-500">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
         <div className="px-8 pb-12 text-center animate-fade-in">
           <span className="material-symbols-outlined text-5xl mb-4 icon-filled opacity-80 animate-bounce text-background">featured_seasonal_and_gifts</span>
@@ -24,7 +25,7 @@ export default function GiftSection() {
             <div className="mb-8 text-center">
               <p className="text-[10px] uppercase font-black text-primary/40 mb-1">Transfer Bank</p>
               <p className="text-primary font-mono text-2xl font-bold tracking-tighter">{accountNumber}</p>
-              <p className="text-xs font-bold text-primary mt-1">Bank BCA - Joel Andrew M.K. Ginting</p>
+              <p className="text-xs font-bold text-primary mt-1">Bank {invitationData.gift.bankName} - {invitationData.gift.accountHolder}</p>
             </div>
 
             <button

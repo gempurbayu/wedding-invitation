@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { invitationData } from "@/data/invitation";
 
 interface TimeLeft {
   days: number;
@@ -10,7 +11,7 @@ interface TimeLeft {
 }
 
 export default function Countdown() {
-  const targetDate = new Date("2026-04-11T13:30:00").getTime();
+  const targetDate = new Date(invitationData.event.timestamp).getTime();
 
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 

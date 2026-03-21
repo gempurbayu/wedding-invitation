@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { invitationData } from "@/data/invitation";
 
 export default function HomeSection() {
   return (
@@ -20,12 +21,12 @@ export default function HomeSection() {
               className="w-full h-full bg-center bg-no-repeat bg-cover transform hover:scale-105 transition-transform duration-700"
               style={{
                 backgroundImage:
-                  'url("/photos/DSC06801.webp")',
+                  `url("${invitationData.gallery.homeImage}")`,
               }}
             ></div>
             <div className="absolute bottom-8 left-0 right-0 z-20 px-6 text-center animate-fade-in-up [animation-delay:0.3s]">
               <p className="text-white/90 text-xs font-black tracking-[0.4em] uppercase mb-3 opacity-80">Save the Date</p>
-              <h1 className="text-white text-5xl font-extrabold leading-tight italic drop-shadow-2xl">Joel & Vio</h1>
+              <h1 className="text-white text-5xl font-extrabold leading-tight italic drop-shadow-2xl">{invitationData.couple.groom.nickname} & {invitationData.couple.bride.nickname}</h1>
             </div>
           </div>
         </div>
@@ -33,12 +34,12 @@ export default function HomeSection() {
 
         <div className="px-6 py-8 text-center space-y-8 animate-fade-in-up [animation-delay:0.5s]">
           <div className="space-y-2">
-            <h2 className="text-primary text-2xl font-bold tracking-tight uppercase">April 11th, 2026</h2>
-            <p className="text-primary/60 font-medium italic">At My Pisita Anyer Resort</p>
+            <h2 className="text-primary text-2xl font-bold tracking-tight uppercase">{invitationData.event.date}</h2>
+            <p className="text-primary/60 font-medium italic">At {invitationData.event.location}</p>
           </div>
           <div className="flex flex-col gap-3 max-w-sm mx-auto">
             <a
-              href="https://www.google.com/calendar/render?action=TEMPLATE&text=Joel+%26+Vio+Wedding&dates=20260411T133000/20260411T200000&details=Join+us+for+our+special+day!+Adat+Dayak+at+1:30+PM,+Pemberkatan+at+4:15+PM.&location=My+Pisita+Anyer+Resort,+Banten"
+              href={invitationData.event.calendarLink}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full bg-primary hover:bg-primary/90 text-background py-4 rounded-xl font-bold text-lg shadow-lg shadow-primary/10 transition-all text-center flex items-center justify-center gap-2 hover:scale-[1.02]"

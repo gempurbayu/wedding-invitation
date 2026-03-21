@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { invitationData } from "@/data/invitation";
 
 export default function ClosingSection() {
   return (
@@ -22,7 +23,7 @@ export default function ClosingSection() {
 
         <div className="pt-8">
           <p className="text-primary/40 text-[10px] font-black uppercase tracking-widest mb-6">Kami yang berbahagia,</p>
-          <h2 className="text-primary text-4xl font-extrabold italic leading-tight">Joel & Vio</h2>
+          <h2 className="text-primary text-4xl font-extrabold italic leading-tight">{invitationData.couple.groom.nickname} & {invitationData.couple.bride.nickname}</h2>
 
           <p className="text-primary/60 text-xs mt-4 font-medium italic">& Kel. Besar Kedua Mempelai</p>
         </div>

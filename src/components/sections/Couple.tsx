@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { invitationData } from "@/data/invitation";
 
 export default function CoupleSection() {
   return (
@@ -19,8 +20,8 @@ export default function CoupleSection() {
               <div className="w-full h-full rounded-full bg-center bg-cover border-4 border-background shadow-2xl overflow-hidden transform group-hover:rotate-3 transition-transform" style={{ backgroundImage: "url('/groom.png')" }}></div>
             </div>
             <div className="space-y-3">
-              <h3 className="text-primary text-2xl font-black italic">JOEL ANDREW M.K. GINTING, S.Kom.</h3>
-              <p className="text-primary/50 text-sm leading-relaxed px-4 italic">Putra tunggal dari <br /><span className="font-bold text-primary not-italic">Alm. Massa Karya Ginting, S.Ba. & <br />Alm. dr. Srimawati Sembirng, S.Ked.</span></p>
+              <h3 className="text-primary text-2xl font-black italic">{invitationData.couple.groom.fullName}</h3>
+              <p className="text-primary/50 text-sm leading-relaxed px-4 italic">Putra tunggal dari <br /><span className="font-bold text-primary not-italic">{invitationData.couple.groom.parents.father} & <br />{invitationData.couple.groom.parents.mother}</span></p>
             </div>
           </div>
           <div className="flex justify-center py-4 animate-zoom-in [animation-delay:0.3s]">
@@ -32,8 +33,8 @@ export default function CoupleSection() {
               <div className="w-full h-full rounded-full bg-center bg-cover border-4 border-background shadow-2xl overflow-hidden transform group-hover:-rotate-3 transition-transform" style={{ backgroundImage: "url('/bride.png')" }}></div>
             </div>
             <div className="space-y-3">
-              <h3 className="text-primary text-2xl font-black italic">VIONA JANE TOEWAK, S.Sn.</h3>
-              <p className="text-primary/50 text-sm leading-relaxed px-4 italic">Putri Ketiga dari <br /><span className="font-bold text-primary not-italic">Drs. Ferry Kalindung Toewak & <br />Alm. Subarty Dahniar Toeriang</span></p>
+              <h3 className="text-primary text-2xl font-black italic">{invitationData.couple.bride.fullName}</h3>
+              <p className="text-primary/50 text-sm leading-relaxed px-4 italic">Putri Ketiga dari <br /><span className="font-bold text-primary not-italic">{invitationData.couple.bride.parents.father} & <br />{invitationData.couple.bride.parents.mother}</span></p>
             </div>
 
           </div>

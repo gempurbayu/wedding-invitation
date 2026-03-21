@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { invitationData } from "@/data/invitation";
 
 export default function Hero({ guestName, onOpen }: { guestName: string; onOpen: () => void }) {
   return (
@@ -19,7 +20,7 @@ export default function Hero({ guestName, onOpen }: { guestName: string; onOpen:
           className="w-full h-full bg-center bg-no-repeat bg-cover animate-fade-in"
           style={{
             backgroundImage:
-              'url("/photos/COVER.webp")',
+              `url("${invitationData.gallery.heroImage}")`,
           }}
 
         ></div>
@@ -28,7 +29,7 @@ export default function Hero({ guestName, onOpen }: { guestName: string; onOpen:
       <div className="relative z-20 space-y-8 max-w-xs">
         <div className="space-y-2 animate-fade-in-up">
           <p className="text-white/80 text-xs font-black uppercase tracking-[0.4em]">Wedding Invitation</p>
-          <h1 className="text-white text-5xl font-extrabold italic leading-tight">Joel & Vio</h1>
+          <h1 className="text-white text-5xl font-extrabold italic leading-tight">{invitationData.couple.groom.nickname} & {invitationData.couple.bride.nickname}</h1>
 
         </div>
 
