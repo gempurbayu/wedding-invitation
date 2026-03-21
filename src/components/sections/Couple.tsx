@@ -17,7 +17,7 @@ export default function CoupleSection() {
           <div className="text-center space-y-6 animate-fade-in-up">
             <div className="relative size-56 mx-auto group">
               <div className="absolute inset-0 border-2 border-primary/5 rounded-full scale-110 group-hover:scale-125 transition-transform duration-700"></div>
-              <div className="w-full h-full rounded-full bg-center bg-cover border-4 border-background shadow-2xl overflow-hidden transform group-hover:rotate-3 transition-transform" style={{ backgroundImage: "url('/groom.png')" }}></div>
+              <div className="w-full h-full rounded-full bg-center bg-cover border-4 border-background shadow-2xl overflow-hidden transform group-hover:rotate-3 transition-transform" style={{ backgroundImage: `url('${invitationData.couple.groom.image}')` }}></div>
             </div>
             <div className="space-y-3">
               <h3 className="text-primary text-2xl font-black italic">{invitationData.couple.groom.fullName}</h3>
@@ -30,7 +30,7 @@ export default function CoupleSection() {
           <div className="text-center space-y-6 animate-fade-in-up [animation-delay:0.5s]">
             <div className="relative size-56 mx-auto group">
               <div className="absolute inset-0 border-2 border-primary/5 rounded-full scale-110 group-hover:scale-125 transition-transform duration-700"></div>
-              <div className="w-full h-full rounded-full bg-center bg-cover border-4 border-background shadow-2xl overflow-hidden transform group-hover:-rotate-3 transition-transform" style={{ backgroundImage: "url('/bride.png')" }}></div>
+              <div className="w-full h-full rounded-full bg-center bg-cover border-4 border-background shadow-2xl overflow-hidden transform group-hover:-rotate-3 transition-transform" style={{ backgroundImage: `url('${invitationData.couple.bride.image}')` }}></div>
             </div>
             <div className="space-y-3">
               <h3 className="text-primary text-2xl font-black italic">{invitationData.couple.bride.fullName}</h3>

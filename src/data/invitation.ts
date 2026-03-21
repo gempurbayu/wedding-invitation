@@ -3,6 +3,7 @@ export const invitationData = {
     groom: {
       fullName: "JOEL ANDREW M.K. GINTING, S.Kom.",
       nickname: "JOEL",
+      image: "/photos/mempelai_pria.JPG",
       parents: {
         father: "Alm. Massa Karya Ginting, S.Ba.",
         mother: "Alm. dr. Srimawati Sembiring, S.Ked."
@@ -11,6 +12,7 @@ export const invitationData = {
     bride: {
       fullName: "VIONA JANE TOEWAK, S.Sn.",
       nickname: "VIO",
+      image: "/photos/mempelai_wanita.JPG",
       parents: {
         father: "Drs. Ferry Kalindung Toewak",
         mother: "Alm. Subarty Dahniar Toeriang"
