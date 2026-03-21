@@ -5,29 +5,31 @@ import { motion } from "framer-motion";
 
 export default function HomeSection() {
   return (
-    <section id="home" className="min-h-screen flex flex-col pt-4">
+    <section id="home" className="min-h-screen flex flex-col pt-4 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
+        className="flex flex-col h-full"
       >
-        <div className="px-4 py-4 flex flex-col justify-center">
-          <div className="relative w-full aspect-4/5 overflow-hidden rounded-xl shadow-2xl animate-zoom-in">
-            <div className="absolute inset-0 bg-linear-to-t from-background-dark/60 via-transparent to-transparent z-10"></div>
+        <div className="px-4 py-2 flex flex-col justify-center">
+          <div className="relative w-full aspect-[4/5] max-h-[60vh] overflow-hidden rounded-3xl shadow-2xl animate-zoom-in">
+            <div className="absolute inset-0 bg-linear-to-t from-background/80 via-transparent to-transparent z-10"></div>
             <div
               className="w-full h-full bg-center bg-no-repeat bg-cover transform hover:scale-105 transition-transform duration-700"
               style={{
                 backgroundImage:
-                  'url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8yJ6pa4M5BqKL4VNRDNtVW1OA7RxCcvrSgyYR4ay10SX-W914WsPu6_xzDv-2cKgU7O9XRUKZRGLNCGK1GQ6srZEuiCMQbemxWj9QEwmBviXSM6DgPdeifayzFkxYcYZUHTuSLWkZkZvh9OlhcgBIQ1yET4QqLNIZuNo83Dca3RolWTWezAg-ugxXTK8XNAo-Z6sCCxpL_u3rK3JToWw8BHoCHfufeN5TB2v-D7-O2W_JLvvglGGDb-QM15Oazh3BVWq818rfVk8")',
+                  'url("/photos/DSC06801.webp")',
               }}
             ></div>
-            <div className="absolute bottom-6 left-0 right-0 z-20 px-6 text-center animate-fade-in-up [animation-delay:0.3s]">
-              <p className="text-white/90 text-sm font-medium tracking-[0.2em] uppercase mb-2">Save the Date</p>
-              <h1 className="text-white text-4xl font-extrabold leading-tight mb-4 italic">Joel & Vio</h1>
+            <div className="absolute bottom-8 left-0 right-0 z-20 px-6 text-center animate-fade-in-up [animation-delay:0.3s]">
+              <p className="text-white/90 text-xs font-black tracking-[0.4em] uppercase mb-3 opacity-80">Save the Date</p>
+              <h1 className="text-white text-5xl font-extrabold leading-tight italic drop-shadow-2xl">Joel & Vio</h1>
             </div>
           </div>
         </div>
+
 
         <div className="px-6 py-8 text-center space-y-8 animate-fade-in-up [animation-delay:0.5s]">
           <div className="space-y-2">

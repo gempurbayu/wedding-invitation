@@ -19,8 +19,9 @@ export default function Hero({ guestName, onOpen }: { guestName: string; onOpen:
           className="w-full h-full bg-center bg-no-repeat bg-cover animate-fade-in"
           style={{
             backgroundImage:
-              'url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8yJ6pa4M5BqKL4VNRDNtVW1OA7RxCcvrSgyYR4ay10SX-W914WsPu6_xzDv-2cKgU7O9XRUKZRGLNCGK1GQ6srZEuiCMQbemxWj9QEwmBviXSM6DgPdeifayzFkxYcYZUHTuSLWkZkZvh9OlhcgBIQ1yET4QqLNIZuNo83Dca3RolWTWezAg-ugxXTK8XNAo-Z6sCCxpL_u3rK3JToWw8BHoCHfufeN5TB2v-D7-O2W_JLvvglGGDb-QM15Oazh3BVWq818rfVk8")',
+              'url("/photos/COVER.webp")',
           }}
+
         ></div>
       </div>
 

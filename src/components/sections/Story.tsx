@@ -36,16 +36,29 @@ export default function StorySection() {
           ))}
         </div>
 
-        <div className="px-4 py-8 masonry-grid">
+        <div className="px-4 py-8 grid grid-cols-2 gap-4">
           {[
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuDSWgyyCvIaT2b8ilZBBLsDCQfMFaBr6r-FqJGYk6163zq-CjteOjNg0yZDMD0ZS_Q_iFhC8NerCLFskuI1rhJ6L1EYuNw9q_LX6UP5Wv8M6j4pML7VHmFOQHi2JZTeExFYudhKZke-F5Vzt8xzoM7ph3MPcJmyUpkJIJuc_QlCeS23bwfCmEahiJrG_ztP2dSLDtUvRX34Ecu9yXwty5Ay8LQIZBYXwGtQb7ufeSmI6Bkl_bg3MHBnKTl_xbhzgqAqYX8OHDEY5HA",
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuASYcYIvUgnQKu2X86DR1QW5UC2I-9UCkjC4x8Kp3e6gKxXN9PQ2GRDKsWWtnlMlVgi6cpaB-GA67VPzW54nbVp_gf1213VWrUTfr807j_NIvcWTBHIGCghxnJFt6ZJcXblmiSAw33FtHqXz0iv3J4oBOfewTlPBrEc3cnsGeGdKpNWGm8Yhrx6wF6z6NyocO7vhhTcvnPfgdBIg7DfNjJCOs74ZAlw6yf-wHL9f5taJc4lcj-iG1P08xC5-1OvLvyfSygvoLZ0-cw",
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuD-8WF3YrghFh4WFCfwn1yCdYmlr0u9hEgox4KRgm22C4BK4AX6BbhimHQ-viy_1m-3ZLc9mBxt00wjTgjwM31E3MD91U2gR-YO2W84dtJMVIGSQ3WfYYK8AvC7zHM1RIlUrggtESpF1CCNkahTdZbOuDWd7iMN_V9qewpvtrSWRYArn4VA4acLNKZTd2KM0NjAqAxzgEZvb0K3OZ2y8cBsTiszM3fqCZ0r-cXcRxXPoIzJsKuBqTMjGKVghCQGOC1K4X2QvmrP_OU",
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuDhe0G3A6mxjq8-lQzYD-vEc6856lla7so0xoBf5pMHviA4JDGrbiSxFMvgNtXuYNTMFg8SPUmtgXuDM3QY2fskGIMsgHlSHM45CT91woSVCcSkgSEjiAYV6Ocs0p-9BwcaHjgaL2cVuPgqbSCrvB_mMpijY4ldHthnQ_Cx-oypBOsvP3xWJyeQTJnoTPrQ58vrTVtA_KBHJM_WsPdPraj9QSfAy2rPeqfkbQasnTjEVtVhpYnkbTfPHtET9oMKYC9UDeWtbXrNJEo"
+            "/photos/DSC06556.webp",
+            "/photos/DSC06577.webp",
+            "/photos/DSC06580.webp",
+            "/photos/DSC06925.webp",
+            "/photos/DSC06605.webp",
+            "/photos/DSC06608.webp",
           ].map((src, i) => (
-            <div key={i} className="masonry-item animate-zoom-in" style={{ animationDelay: `${i * 0.15}s` }}><img src={src} alt="Gallery" className="w-full rounded-2xl shadow-lg border border-primary/10 hover:scale-[1.03] transition-transform duration-500" /></div>
+            <div
+              key={i}
+              className="animate-zoom-in aspect-square overflow-hidden rounded-2xl shadow-lg border border-primary/10"
+              style={{ animationDelay: `${i * 0.1}s` }}
+            >
+              <img
+                src={src}
+                alt="Gallery"
+                className="w-full h-full object-cover object-bottom hover:scale-110 transition-transform duration-700"
+              />
+            </div>
           ))}
         </div>
+
 
         {/* Horizontal Carousel */}
         <div className="mt-8 overflow-hidden">
@@ -58,17 +71,26 @@ export default function StorySection() {
           </div>
           <div className="flex overflow-x-auto gap-4 px-6 pb-4 no-scrollbar snap-x snap-mandatory scroll-smooth">
             {[
-              "https://lh3.googleusercontent.com/aida-public/AB6AXuDSWgyyCvIaT2b8ilZBBLsDCQfMFaBr6r-FqJGYk6163zq-CjteOjNg0yZDMD0ZS_Q_iFhC8NerCLFskuI1rhJ6L1EYuNw9q_LX6UP5Wv8M6j4pML7VHmFOQHi2JZTeExFYudhKZke-F5Vzt8xzoM7ph3MPcJmyUpkJIJuc_QlCeS23bwfCmEahiJrG_ztP2dSLDtUvRX34Ecu9yXwty5Ay8LQIZBYXwGtQb7ufeSmI6Bkl_bg3MHBnKTl_xbhzgqAqYX8OHDEY5HA",
-              "https://lh3.googleusercontent.com/aida-public/AB6AXuASYcYIvUgnQKu2X86DR1QW5UC2I-9UCkjC4x8Kp3e6gKxXN9PQ2GRDKsWWtnlMlVgi6cpaB-GA67VPzW54nbVp_gf1213VWrUTfr807j_NIvcWTBHIGCghxnJFt6ZJcXblmiSAw33FtHqXz0iv3J4oBOfewTlPBrEc3cnsGeGdKpNWGm8Yhrx6wF6z6NyocO7vhhTcvnPfgdBIg7DfNjJCOs74ZAlw6yf-wHL9f5taJc4lcj-iG1P08xC5-1OvLvyfSygvoLZ0-cw",
-              "https://lh3.googleusercontent.com/aida-public/AB6AXuD-8WF3YrghFh4WFCfwn1yCdYmlr0u9hEgox4KRgm22C4BK4AX6BbhimHQ-viy_1m-3ZLc9mBxt00wjTgjwM31E3MD91U2gR-YO2W84dtJMVIGSQ3WfYYK8AvC7zHM1RIlUrggtESpF1CCNkahTdZbOuDWd7iMN_V9qewpvtrSWRYArn4VA4acLNKZTd2KM0NjAqAxzgEZvb0K3OZ2y8cBsTiszM3fqCZ0r-cXcRxXPoIzJsKuBqTMjGKVghCQGOC1K4X2QvmrP_OU",
-              "https://lh3.googleusercontent.com/aida-public/AB6AXuDhe0G3A6mxjq8-lQzYD-vEc6856lla7so0xoBf5pMHviA4JDGrbiSxFMvgNtXuYNTMFg8SPUmtgXuDM3QY2fskGIMsgHlSHM45CT91woSVCcSkgSEjiAYV6Ocs0p-9BwcaHjgaL2cVuPgqbSCrvB_mMpijY4ldHthnQ_Cx-oypBOsvP3xWJyeQTJnoTPrQ58vrTVtA_KBHJM_WsPdPraj9QSfAy2rPeqfkbQasnTjEVtVhpYnkbTfPHtET9oMKYC9UDeWtbXrNJEo"
+              "/photos/DSC06690.webp",
+              "/photos/DSC06746.webp",
+              "/photos/DSC06597.webp",
+              "/photos/DSC06793.webp",
+              "/photos/DSC06801.webp",
+              "/photos/DSC06838.webp",
+              "/photos/DSC06888.webp",
+              "/photos/DSC06891.webp",
+              "/photos/DSC06900.webp",
+              "/photos/DSC06902.webp",
+              "/photos/DSC06933.webp",
             ].map((src, i) => (
-              <div key={i} className="w-72 flex-shrink-0 aspect-[4/5] rounded-2xl overflow-hidden shadow-xl border border-primary/10 snap-center transition-all duration-300 hover:scale-[1.02]">
-                <img src={src} alt="Gallery Carousel" className="w-full h-full object-cover" />
+              <div key={i} className="w-80 flex-shrink-0 h-64 rounded-2xl overflow-hidden shadow-xl border border-primary/10 snap-center transition-all duration-300 hover:scale-[1.02]">
+                <img src={src} alt="Gallery Carousel" className="w-full h-full object-cover object-center" />
               </div>
             ))}
           </div>
         </div>
+
+
       </motion.div>
     </section>
   );

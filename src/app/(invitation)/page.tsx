@@ -124,55 +124,58 @@ function InvitationContent() {
         {isAssetsLoaded && !isOpened ? (
           <Hero guestName={guestName} onOpen={() => setIsOpened(true)} />
         ) : isAssetsLoaded && isOpened ? (
-          <motion.div
-            key="main-content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="flex h-auto w-full flex-col relative"
-          >
-            {/* Floating Controls */}
-            <div className="fixed bottom-52 left-1/2 -translate-x-1/2 w-full max-w-md z-100 pointer-events-none">
-              <div className="relative w-full h-0">
-                <div className="absolute right-4 top-0 flex flex-col gap-3 pointer-events-auto">
-                  <ThemeToggle />
-                  <button
-                    onClick={toggleMusic}
-                    className="size-10 bg-primary/20 backdrop-blur-md rounded-full border border-primary/20 text-primary flex items-center justify-center shadow-lg transition-transform active:scale-90 animate-zoom-in"
-                  >
-                    <span className={`material-symbols-outlined text-xl ${isPlaying ? 'animate-pulse' : ''}`}>
-                      {isPlaying ? 'music_note' : 'music_off'}
-                    </span>
-                  </button>
+          <>
+            <motion.div
+              key="main-content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="flex h-auto w-full flex-col relative"
+            >
+              {/* Floating Controls */}
+              <div className="fixed bottom-52 left-1/2 -translate-x-1/2 w-full max-w-md z-100 pointer-events-none">
+                <div className="relative w-full h-0">
+                  <div className="absolute right-4 top-0 flex flex-col gap-3 pointer-events-auto">
+                    <ThemeToggle />
+                    <button
+                      onClick={toggleMusic}
+                      className="size-10 bg-primary/20 backdrop-blur-md rounded-full border border-primary/20 text-primary flex items-center justify-center shadow-lg transition-transform active:scale-90 animate-zoom-in"
+                    >
+                      <span className={`material-symbols-outlined text-xl ${isPlaying ? 'animate-pulse' : ''}`}>
+                        {isPlaying ? 'music_note' : 'music_off'}
+                      </span>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <HomeSection />
-            <CoupleSection />
-            <DetailsSection />
-            <StorySection />
-            <RSVPSection
-              guestName={guestName}
-              rsvpName={rsvpName}
-              setRsvpName={setRsvpName}
-              isAttending={isAttending}
-              setIsAttending={setIsAttending}
-              rsvpMessage={rsvpMessage}
-              setRsvpMessage={setRsvpMessage}
-              isSubmitting={isSubmitting}
-              isSubmitted={isSubmitted}
-              setIsSubmitted={setIsSubmitted}
-              responses={responses}
-              onSubmit={handleRSVPSubmit}
-            />
-            <GiftSection />
-            <ClosingSection />
+              <HomeSection />
+              <CoupleSection />
+              <DetailsSection />
+              <StorySection />
+              <RSVPSection
+                guestName={guestName}
+                rsvpName={rsvpName}
+                setRsvpName={setRsvpName}
+                isAttending={isAttending}
+                setIsAttending={setIsAttending}
+                rsvpMessage={rsvpMessage}
+                setRsvpMessage={setRsvpMessage}
+                isSubmitting={isSubmitting}
+                isSubmitted={isSubmitted}
+                setIsSubmitted={setIsSubmitted}
+                responses={responses}
+                onSubmit={handleRSVPSubmit}
+              />
+              <GiftSection />
+              <ClosingSection />
 
-            <div className="h-24"></div>
+              <div className="h-24"></div>
+            </motion.div>
             <BottomNav />
-          </motion.div>
+          </>
         ) : null}
+
       </AnimatePresence>
     </div>
   );
