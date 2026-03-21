@@ -27,7 +27,8 @@ export default function Hero({ guestName, onOpen }: { guestName: string; onOpen:
       <div className="relative z-20 space-y-8 max-w-xs">
         <div className="space-y-2 animate-fade-in-up">
           <p className="text-white/80 text-xs font-black uppercase tracking-[0.4em]">Wedding Invitation</p>
-          <h1 className="text-white text-5xl font-extrabold italic leading-tight">Aris & Maya</h1>
+          <h1 className="text-white text-5xl font-extrabold italic leading-tight">Joel & Vio</h1>
+
         </div>
 
         <div className="space-y-4 bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 animate-zoom-in [animation-delay:0.2s]">

@@ -24,19 +24,19 @@ export default function HomeSection() {
             ></div>
             <div className="absolute bottom-6 left-0 right-0 z-20 px-6 text-center animate-fade-in-up [animation-delay:0.3s]">
               <p className="text-white/90 text-sm font-medium tracking-[0.2em] uppercase mb-2">Save the Date</p>
-              <h1 className="text-white text-4xl font-extrabold leading-tight mb-4 italic">Aris & Maya</h1>
+              <h1 className="text-white text-4xl font-extrabold leading-tight mb-4 italic">Joel & Vio</h1>
             </div>
           </div>
         </div>
 
         <div className="px-6 py-8 text-center space-y-8 animate-fade-in-up [animation-delay:0.5s]">
           <div className="space-y-2">
-            <h2 className="text-primary text-2xl font-bold tracking-tight uppercase">August 24th, 2026</h2>
-            <p className="text-primary/60 font-medium italic">At The Whispering Pines Estate</p>
+            <h2 className="text-primary text-2xl font-bold tracking-tight uppercase">April 11th, 2026</h2>
+            <p className="text-primary/60 font-medium italic">At My Pisita Anyer Resort</p>
           </div>
           <div className="flex flex-col gap-3 max-w-sm mx-auto">
             <a
-              href="https://www.google.com/calendar/render?action=TEMPLATE&text=Aris+%26+Maya+Wedding&dates=20260824T143000/20260824T230000&details=Join+us+for+our+special+day!+Ceremony+at+2:30+PM,+Reception+at+5:00+PM.&location=St.+Mary's+Botanical+Garden,+Ojai,+CA"
+              href="https://www.google.com/calendar/render?action=TEMPLATE&text=Joel+%26+Vio+Wedding&dates=20260411T133000/20260411T200000&details=Join+us+for+our+special+day!+Adat+Dayak+at+1:30+PM,+Pemberkatan+at+4:15+PM.&location=My+Pisita+Anyer+Resort,+Banten"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full bg-primary hover:bg-primary/90 text-background py-4 rounded-xl font-bold text-lg shadow-lg shadow-primary/10 transition-all text-center flex items-center justify-center gap-2 hover:scale-[1.02]"
@@ -45,6 +45,7 @@ export default function HomeSection() {
               Save to Google Calendar
             </a>
           </div>
+
 
           {/* Animated Scroll Down indicator */}
           <div className="flex flex-col items-center gap-3 pt-4 opacity-40 animate-fade-in [animation-delay:1s]">

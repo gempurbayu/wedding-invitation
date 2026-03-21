@@ -4,8 +4,8 @@ import MobileContainer from "@/components/MobileContainer";
 import BottomNav from "@/components/BottomNav";
 
 export const metadata: Metadata = {
-  title: "Aris & Maya Wedding",
-  description: "Wedding Invitation for Aris & Maya",
+  title: "Joel & Vio Wedding",
+  description: "Wedding Invitation for Joel & Vio",
 };
 
 export default function RootLayout({

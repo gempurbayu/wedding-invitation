@@ -4,8 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 
 export default function GiftSection() {
-  const accountNumber = "8820 4491 300";
-  
+  const accountNumber = "7750 9748 69";
+
   const handleCopy = () => {
     navigator.clipboard.writeText(accountNumber.replace(/\s/g, ""));
     alert("Nomor rekening disalin!");
@@ -24,9 +24,10 @@ export default function GiftSection() {
             <div className="mb-8 text-center">
               <p className="text-[10px] uppercase font-black text-primary/40 mb-1">Transfer Bank</p>
               <p className="text-primary font-mono text-2xl font-bold tracking-tighter">{accountNumber}</p>
-              <p className="text-xs font-bold text-primary mt-1">Bank BCA - Aris & Maya</p>
+              <p className="text-xs font-bold text-primary mt-1">Bank BCA - Joel Andrew M.K. Ginting</p>
             </div>
-            <button 
+
+            <button
               onClick={handleCopy}
               className="w-full h-12 bg-primary text-background rounded-xl font-bold active:scale-95 transition-transform"
             >
@@ -34,7 +35,7 @@ export default function GiftSection() {
             </button>
           </div>
 
-          <div className="bg-background rounded-3xl p-8 text-primary shadow-2xl relative overflow-hidden animate-zoom-in [animation-delay:0.4s]">
+          {/* <div className="bg-background rounded-3xl p-8 text-primary shadow-2xl relative overflow-hidden animate-zoom-in [animation-delay:0.4s]">
             <div className="flex flex-col items-center gap-6">
               <div className="size-48 bg-white p-2 rounded-2xl shadow-inner border border-primary/5">
                 <img 
@@ -45,7 +46,7 @@ export default function GiftSection() {
               </div>
               <p className="text-[10px] uppercase font-black text-primary/40 text-center">Scan QRIS for Digital Gift</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </motion.div>
     </section>

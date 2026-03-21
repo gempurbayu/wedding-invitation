@@ -10,7 +10,8 @@ interface TimeLeft {
 }
 
 export default function Countdown() {
-  const targetDate = new Date("2026-08-24T14:30:00").getTime();
+  const targetDate = new Date("2026-04-11T13:30:00").getTime();
+
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
   useEffect(() => {

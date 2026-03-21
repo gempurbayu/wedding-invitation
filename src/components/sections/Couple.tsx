@@ -19,8 +19,8 @@ export default function CoupleSection() {
               <div className="w-full h-full rounded-full bg-center bg-cover border-4 border-background shadow-2xl overflow-hidden transform group-hover:rotate-3 transition-transform" style={{ backgroundImage: "url('/groom.png')" }}></div>
             </div>
             <div className="space-y-3">
-              <h3 className="text-primary text-3xl font-black italic">Aris S.T.</h3>
-              <p className="text-primary/50 text-sm leading-relaxed px-4 italic">Putra Kedua dari <br /><span className="font-bold text-primary not-italic">Bapak Aris Sr. & Ibu Aris Sr.</span></p>
+              <h3 className="text-primary text-2xl font-black italic">JOEL ANDREW M.K. GINTING, S.Kom.</h3>
+              <p className="text-primary/50 text-sm leading-relaxed px-4 italic">Putra tunggal dari <br /><span className="font-bold text-primary not-italic">Alm. Massa Karya Ginting, S.Ba. & <br />Alm. dr. Srimawati Sembirng, S.Ked.</span></p>
             </div>
           </div>
           <div className="flex justify-center py-4 animate-zoom-in [animation-delay:0.3s]">
@@ -32,9 +32,10 @@ export default function CoupleSection() {
               <div className="w-full h-full rounded-full bg-center bg-cover border-4 border-background shadow-2xl overflow-hidden transform group-hover:-rotate-3 transition-transform" style={{ backgroundImage: "url('/bride.png')" }}></div>
             </div>
             <div className="space-y-3">
-              <h3 className="text-primary text-3xl font-black italic">Maya S.Kom.</h3>
-              <p className="text-primary/50 text-sm leading-relaxed px-4 italic">Putri Pertama dari <br /><span className="font-bold text-primary not-italic">Bapak Maya Sr. & Ibu Maya Sr.</span></p>
+              <h3 className="text-primary text-2xl font-black italic">VIONA JANE TOEWAK, S.Sn.</h3>
+              <p className="text-primary/50 text-sm leading-relaxed px-4 italic">Putri Ketiga dari <br /><span className="font-bold text-primary not-italic">Drs. Ferry Kalindung Toewak & <br />Alm. Subarty Dahniar Toeriang</span></p>
             </div>
+
           </div>
         </div>
       </motion.div>

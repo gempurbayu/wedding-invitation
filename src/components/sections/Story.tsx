@@ -17,10 +17,11 @@ export default function StorySection() {
         <div className="px-8 pb-16 space-y-12 relative max-w-lg mx-auto border-b border-primary/5">
           <div className="absolute left-10 top-8 bottom-8 w-0.5 border-l-2 border-dashed border-primary/20"></div>
           {[
-            { date: "Summer 2020", title: "First Meeting", desc: "A chance encounter at a local coffee shop that changed everything.", icon: "coffee_maker", color: "bg-primary/20" },
-            { date: "Winter 2021", title: "The First Date", desc: "An evening walk under the city lights that felt like a lifetime.", icon: "favorite", color: "bg-primary/40" },
-            { date: "Spring 2023", title: "The Proposal", desc: "On a quiet hilltop at sunset, she said 'Yes' to forever.", icon: "auto_awesome", color: "bg-primary/60" },
-            { date: "August 2026", title: "Our Wedding", desc: "The beginning of our new chapter as Mr. & Mrs.", icon: "celebration", color: "bg-primary" }
+            { date: "2019", title: "First Meeting", desc: "A chance encounter at Hourminute coffee shop that changed everything.", icon: "coffee_maker", color: "bg-primary/20" },
+            { date: "26 November 2021", title: "The First Date", desc: "Watching Gigs Normal-Normal Vol. 1 around Ciumbuleuit.", icon: "favorite", color: "bg-primary/40" },
+            { date: "07 Maret 2026", title: "The Proposal", desc: "A beautiful afternoon in Palangkaraya, filled with calm and warmth.", icon: "auto_awesome", color: "bg-primary/60" },
+            { date: "11 April 2026", title: "Our Wedding", desc: "The beginning of our new chapter as Mr. & Mrs.", icon: "celebration", color: "bg-primary" }
+
           ].map((step, i) => (
             <div key={i} className="relative flex items-start gap-8 group animate-fade-in-up" style={{ animationDelay: `${i * 0.2}s` }}>
               <div className={`relative z-10 size-12 rounded-full ${step.color} text-background flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform ring-4 ring-background`}>
