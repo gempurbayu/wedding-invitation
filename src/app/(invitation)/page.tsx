@@ -22,6 +22,7 @@ interface RSVPResponse {
   name: string;
   attending: boolean;
   message: string;
+  guest_count?: number;
   created_at: string;
 }
 
@@ -37,6 +38,7 @@ function InvitationContent() {
   // RSVP States
   const [rsvpName, setRsvpName] = useState(guestName);
   const [isAttending, setIsAttending] = useState<boolean | null>(null);
+  const [guestCount, setGuestCount] = useState<number>(1);
   const [rsvpMessage, setRsvpMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -95,7 +97,8 @@ function InvitationContent() {
         body: JSON.stringify({
           name: rsvpName,
           attending: isAttending,
-          message: rsvpMessage
+          message: rsvpMessage,
+          guestCount: isAttending ? guestCount : 0
         })
       });
       if (res.ok) {
@@ -159,6 +162,8 @@ function InvitationContent() {
                 setRsvpName={setRsvpName}
                 isAttending={isAttending}
                 setIsAttending={setIsAttending}
+                guestCount={guestCount}
+                setGuestCount={setGuestCount}
                 rsvpMessage={rsvpMessage}
                 setRsvpMessage={setRsvpMessage}
                 isSubmitting={isSubmitting}

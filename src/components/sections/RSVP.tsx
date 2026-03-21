@@ -8,6 +8,7 @@ interface RSVPResponse {
   name: string;
   attending: boolean;
   message: string;
+  guest_count?: number;
   created_at: string;
 }
 
@@ -17,6 +18,8 @@ interface RSVPSectionProps {
   setRsvpName: (name: string) => void;
   isAttending: boolean | null;
   setIsAttending: (attending: boolean | null) => void;
+  guestCount: number;
+  setGuestCount: (count: number) => void;
   rsvpMessage: string;
   setRsvpMessage: (message: string) => void;
   isSubmitting: boolean;
@@ -32,6 +35,8 @@ export default function RSVPSection({
   setRsvpName,
   isAttending,
   setIsAttending,
+  guestCount,
+  setGuestCount,
   rsvpMessage,
   setRsvpMessage,
   isSubmitting,
@@ -48,7 +53,7 @@ export default function RSVPSection({
           <p className="text-primary/60 text-sm font-medium italic mb-4">Please let us know if you can make it</p>
           <div className="bg-primary/10 p-4 rounded-xl border border-primary/10 inline-block animate-pulse max-w-[350px]">
             <p className="text-primary font-medium text-[10px] leading-relaxed italic">
-              Besar harapan kami dapat berbagi kebahagiaan bersama. Mohon kesediaannya untuk konfirmasi paling lambat <span className="font-black not-italic text-xs">5 April 2026</span>.
+              Besar harapan kami dapat berbagi kebahagiaan bersama. Mohon kesediaannya untuk konfirmasi paling lambat <span className="font-black not-italic text-xs">4 April 2026</span>.
             </p>
           </div>
         </div>
@@ -74,6 +79,21 @@ export default function RSVPSection({
                 <button type="button" onClick={() => setIsAttending(false)} className={`h-14 rounded-xl border-2 transition-all font-bold ${isAttending === false ? 'bg-primary text-background border-primary shadow-lg scale-105' : 'border-primary/10 text-primary'}`}>Sorry, can&apos;t</button>
               </div>
             </div>
+            {isAttending === true && (
+              <div className="space-y-2 animate-fade-in-up">
+                <label className="text-sm font-bold text-primary">Jumlah Kehadiran</label>
+                <div className="relative">
+                  <select value={guestCount} onChange={(e) => setGuestCount(Number(e.target.value))} className="w-full h-14 bg-primary/5 border border-primary/10 rounded-xl px-4 outline-none transition-all text-primary cursor-pointer appearance-none font-medium">
+                    <option value={1} className="text-foreground">1 Orang</option>
+                    <option value={2} className="text-foreground">2 Orang</option>
+                    <option value={3} className="text-foreground">3 Orang</option>
+                    <option value={4} className="text-foreground">4 Orang</option>
+                    <option value={5} className="text-foreground">5 Orang</option>
+                  </select>
+                  <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-primary/50 pointer-events-none">expand_more</span>
+                </div>
+              </div>
+            )}
             <div className="space-y-2">
               <label className="text-sm font-bold text-primary">Ucapan & Doa</label>
               <textarea value={rsvpMessage} onChange={(e) => setRsvpMessage(e.target.value)} className="w-full h-32 bg-primary/5 border border-primary/10 rounded-xl p-4 outline-none transition-all resize-none placeholder:italic text-primary" placeholder="Tuliskan ucapan & doa untuk mempelai..." />
@@ -97,7 +117,7 @@ export default function RSVPSection({
                   <div className="flex justify-between items-center">
                     <span className="text-primary font-bold text-xs">{res.name}</span>
                     <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${res.attending ? 'bg-primary/20 text-primary' : 'bg-primary/5 text-primary/50'}`}>
-                      {res.attending ? 'Attending' : 'Can\'t come'}
+                      {res.attending ? `Hadir (${res.guest_count || 1})` : 'Absen'}
                     </span>
                   </div>
                   <p className="text-sm text-primary/70 italic leading-relaxed">&quot;{res.message}&quot;</p>

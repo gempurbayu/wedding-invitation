@@ -3,6 +3,7 @@ export interface RSVP {
   name: string;
   attending: boolean;
   message: string;
+  guest_count?: number;
   created_at: string;
 }
 
@@ -19,4 +20,8 @@ export interface PaginatedResponse<T> {
   count: number;
   totalPages: number;
   currentPage: number;
+  summary?: {
+    totalAttendingResponses: number;
+    totalGuestCount: number;
+  };
 }

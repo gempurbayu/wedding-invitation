@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, attending, message } = body;
+    const { name, attending, message, guestCount } = body;
 
     if (!name) {
       return NextResponse.json({ error: 'Name is required' }, { status: 400 });
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     const { data, error } = await supabase
       .from('rsvp')
       .insert([
-        { name, attending, message }
+        { name, attending, message, guest_count: guestCount || 1 }
       ])
       .select();
 
@@ -40,6 +40,14 @@ export async function GET(request: Request) {
     const from = (page - 1) * limit;
     const to = from + limit - 1;
 
+    // Fetch summary stats
+    const { data: statsData } = await supabase
+      .from('rsvp')
+      .select('attending, guest_count');
+    
+    const totalAttendingResponses = statsData?.filter(r => r.attending).length || 0;
+    const totalGuestCount = statsData?.filter(r => r.attending).reduce((sum, r) => sum + (r.guest_count || 1), 0) || 0;
+
     let query = supabase
       .from('rsvp')
       .select('*', { count: 'exact' });
@@ -64,7 +72,11 @@ export async function GET(request: Request) {
       data: data || [],
       count: count || 0,
       totalPages: Math.ceil((count || 0) / limit),
-      currentPage: page
+      currentPage: page,
+      summary: {
+        totalAttendingResponses,
+        totalGuestCount
+      }
     });
   } catch (error) {
     console.error('Fetch RSVP Error:', error);

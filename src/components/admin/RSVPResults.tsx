@@ -18,9 +18,16 @@ export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searc
   return (
     <section className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <span className="material-symbols-outlined text-zinc-400">check_circle</span>
-          <h2 className="text-2xl font-bold italic text-white">RSVP Responses</h2>
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-3">
+            <span className="material-symbols-outlined text-zinc-400">check_circle</span>
+            <h2 className="text-2xl font-bold italic text-white">RSVP Responses</h2>
+          </div>
+          {rsvps.summary && (
+            <p className="text-sm text-zinc-400">
+              <span className="text-emerald-400 font-bold">{rsvps.summary.totalAttendingResponses}</span> Konfirmasi Hadir • <span className="text-white font-bold">{rsvps.summary.totalGuestCount}</span> Total Tamu Hadir
+            </p>
+          )}
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
@@ -59,6 +66,7 @@ export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searc
               <tr className="border-b border-white/5 bg-white/5">
                 <th className="px-6 py-4 font-black uppercase text-[10px] tracking-widest text-zinc-400">Tamu</th>
                 <th className="px-6 py-4 font-black uppercase text-[10px] tracking-widest text-zinc-400">Kehadiran</th>
+                <th className="px-6 py-4 font-black uppercase text-[10px] tracking-widest text-zinc-400">Jml Tamu</th>
                 <th className="px-6 py-4 font-black uppercase text-[10px] tracking-widest text-zinc-400 w-1/3">Pesan</th>
                 <th className="px-6 py-4 font-black uppercase text-[10px] tracking-widest text-zinc-400 text-right">Tanggal</th>
               </tr>
@@ -73,6 +81,9 @@ export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searc
                     ) : (
                       <span className="bg-zinc-500/10 text-zinc-500 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Absen</span>
                     )}
+                  </td>
+                  <td className="px-6 py-4 font-mono text-zinc-300">
+                    {rsvp.attending ? `${rsvp.guest_count || 1} Orang` : '-'}
                   </td>
                   <td className="px-6 py-4 text-zinc-400 italic">
                     {rsvp.message ? `"${rsvp.message}"` : '-'}
@@ -90,7 +101,7 @@ export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searc
               ))}
               {currentItems.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center text-zinc-500 italic">No responses found.</td>
+                  <td colSpan={5} className="px-6 py-12 text-center text-zinc-500 italic">No responses found.</td>
                 </tr>
               )}
             </tbody>
