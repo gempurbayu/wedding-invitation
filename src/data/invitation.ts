@@ -15,7 +15,7 @@ export const invitationData = {
       image: "/photos/mempelai_wanita.JPG",
       parents: {
         father: "Drs. Ferry Kalindung Toewak",
-        mother: "Alm. Subarty Dahniar Toeriang"
+        mother: "Alm. Ir. Subarty Dahniar Toeriang"
       }
     }
   },
@@ -65,11 +65,18 @@ export const invitationData = {
       description: "“The beginning of our new chapter as Mr. & Mrs.”"
     }
   ],
-  gift: {
-    bankName: "BCA",
-    accountNumber: "7750974869",
-    accountHolder: "Joel Andrew M.K. Ginting"
-  },
+  gift: [
+    {
+      bankName: "BCA",
+      accountNumber: "7750974869",
+      accountHolder: "Joel Andrew M.K. Ginting"
+    },
+    {
+      bankName: "BNI",
+      accountNumber: "0718001454",
+      accountHolder: "Viona Jane Toewak"
+    }
+  ],
   gallery: {
     heroImage: "/photos/COVER.webp",
     homeImage: "/photos/DSC06801.webp",

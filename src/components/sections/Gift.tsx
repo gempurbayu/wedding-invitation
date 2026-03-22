@@ -5,13 +5,6 @@ import { motion } from "framer-motion";
 import { invitationData } from "@/data/invitation";
 
 export default function GiftSection() {
-  const accountNumber = invitationData.gift.accountNumber;
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(accountNumber.replace(/\s/g, ""));
-    alert("Nomor rekening disalin!");
-  };
-
   return (
     <section id="gift" className=" py-16 bg-primary text-background text-center transition-colors duration-500">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
@@ -21,20 +14,25 @@ export default function GiftSection() {
           <p className="text-background/60 text-sm italic max-w-xs mx-auto">Doa restu Anda merupakan kado terindah bagi kami. Namun jika Anda ingin memberikan tanda kasih, Anda dapat memberikannya melalui:</p>
         </div>
         <div className="px-6 space-y-6 max-w-sm mx-auto">
-          <div className="bg-background rounded-3xl p-8 text-primary shadow-2xl relative overflow-hidden animate-zoom-in [animation-delay:0.3s]">
-            <div className="mb-8 text-center">
-              <p className="text-[10px] uppercase font-black text-primary/40 mb-1">Transfer Bank</p>
-              <p className="text-primary font-mono text-2xl font-bold tracking-tighter">{accountNumber}</p>
-              <p className="text-xs font-bold text-primary mt-1">Bank {invitationData.gift.bankName} - {invitationData.gift.accountHolder}</p>
-            </div>
+          {invitationData.gift.map((gift, index) => (
+            <div key={index} className="bg-background rounded-3xl p-8 text-primary shadow-2xl relative overflow-hidden animate-zoom-in [animation-delay:0.3s]">
+              <div className="mb-8 text-center">
+                <p className="text-[10px] uppercase font-black text-primary/40 mb-1">Transfer Bank</p>
+                <p className="text-primary font-mono text-2xl font-bold tracking-tighter">{gift.accountNumber}</p>
+                <p className="text-xs font-bold text-primary mt-1">Bank {gift.bankName} - {gift.accountHolder}</p>
+              </div>
 
-            <button
-              onClick={handleCopy}
-              className="w-full h-12 bg-primary text-background rounded-xl font-bold active:scale-95 transition-transform"
-            >
-              Copy Account Number
-            </button>
-          </div>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(gift.accountNumber.replace(/\s/g, ""));
+                  alert("Nomor rekening disalin!");
+                }}
+                className="w-full h-12 bg-primary text-background rounded-xl font-bold active:scale-95 transition-transform"
+              >
+                Copy Account Number
+              </button>
+            </div>
+          ))}
 
           {/* <div className="bg-background rounded-3xl p-8 text-primary shadow-2xl relative overflow-hidden animate-zoom-in [animation-delay:0.4s]">
             <div className="flex flex-col items-center gap-6">
