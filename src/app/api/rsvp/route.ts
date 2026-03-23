@@ -44,7 +44,7 @@ export async function GET(request: Request) {
     const { data: statsData } = await supabase
       .from('rsvp')
       .select('attending, guest_count');
-    
+
     const totalAttendingResponses = statsData?.filter(r => r.attending).length || 0;
     const totalGuestCount = statsData?.filter(r => r.attending).reduce((sum, r) => sum + (r.guest_count || 1), 0) || 0;
 

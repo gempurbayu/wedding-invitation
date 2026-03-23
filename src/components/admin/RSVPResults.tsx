@@ -75,7 +75,7 @@ export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searc
             </thead>
             <tbody className="divide-y divide-white/5">
               {currentItems.map((rsvp: RSVP) => (
-                <tr key={rsvp.id} className="hover:bg-white/5 transition-colors">
+                <tr key={rsvp.id} className="hover:bg-white/5 transition-colors group">
                   <td className="px-6 py-4 font-bold text-white">{rsvp.name}</td>
                   <td className="px-6 py-4">
                     {rsvp.attending ? (
