@@ -41,10 +41,43 @@ export default function InvitationManager({
     alert("Link berhasil disalin!");
   };
 
+  const getMessageText = (invite: Invitation) => {
+    return `Yth. Bapak/Ibu/Saudara/i
+${invite.name}
+Di Tempat
+
+Shaloom
+Dengan penuh rasa syukur dan bahagia,
+kami mengundang Bapak/Ibu/Saudara/i serta sahabat tercinta untuk hadir dan memberikan doa restu pada acara pernikahan kami:
+
+💍The Wedding of Vio & Joel💍
+
+💌Save The Date౨ৎ˚⟡˖ ࣪.ᐟ 🕊️
+
+📅 Date : Sabtu, 11 April 2026
+🕘 Time : 13:30 s/d Selesai
+📍 Location : Villa My Pisita Anyer
+
+${baseUrl}/?to=${invite.slug}
+
+Kehadiran dan doa restu Bapak/Ibu/Saudara/i akan menjadi kebahagiaan tersendiri bagi kami ♡
+
+Note’s : Kami berharap untuk Bapak/Ibu/Saudara/i serta sahabat tercinta, sebelum tanggal 04 April 2026 untuk bisa mengisi Reservasi pada link undangan yang di berikan serta jumlah yang hadir pada saat acara dilaksanakan nanti.
+
+
+With love,
+Vio dan Joel`;
+  };
+
   const getWALink = (invite: Invitation) => {
-    const text = `Halo ${invite.name},\n\nTanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.\n\nDetail undangan dapat dilihat pada tautan berikut:\n${baseUrl}/?to=${invite.slug}\n\nTerima kasih.`;
+    const text = getMessageText(invite);
     const phone = invite.whatsapp.startsWith('0') ? '62' + invite.whatsapp.slice(1) : invite.whatsapp;
     return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+  };
+
+  const copyMessage = (invite: Invitation) => {
+    navigator.clipboard.writeText(getMessageText(invite));
+    alert("Pesan undangan berhasil disalin!");
   };
 
   return (
@@ -137,12 +170,20 @@ export default function InvitationManager({
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex justify-end gap-2 text-white">
+                        <button 
+                          onClick={() => copyMessage(invite)}
+                          title="Copy Message"
+                          className="size-8 bg-blue-500/10 hover:bg-blue-500/20 text-blue-500 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
+                        >
+                          <span className="material-symbols-outlined text-sm">chat</span>
+                        </button>
                         {invite.whatsapp && (
                           <a 
                             href={getWALink(invite)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="size-8 bg-green-500/10 hover:bg-green-500/20 text-green-500 rounded-full flex items-center justify-center transition-all"
+                            className="size-8 bg-green-500/10 hover:bg-green-500/20 text-green-500 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
+                            title="Send via WhatsApp"
                           >
                             <span className="material-symbols-outlined text-sm">share</span>
                           </a>
