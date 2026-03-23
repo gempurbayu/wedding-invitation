@@ -8,9 +8,10 @@ interface Props {
   searchQuery: string;
   statusFilter: string;
   onStatusChange: (status: string) => void;
+  onDelete: (id: string) => Promise<void>;
 }
 
-export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searchQuery, statusFilter, onStatusChange }: Props) {
+export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searchQuery, statusFilter, onStatusChange, onDelete }: Props) {
   // Server-side values
   const { data: currentItems, totalPages, currentPage, count: totalItems } = rsvps;
   const itemsPerPage = 10;
@@ -69,6 +70,7 @@ export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searc
                 <th className="px-6 py-4 font-black uppercase text-[10px] tracking-widest text-zinc-400">Jml Tamu</th>
                 <th className="px-6 py-4 font-black uppercase text-[10px] tracking-widest text-zinc-400 w-1/3">Pesan</th>
                 <th className="px-6 py-4 font-black uppercase text-[10px] tracking-widest text-zinc-400 text-right">Tanggal</th>
+                <th className="px-6 py-4 font-black uppercase text-[10px] tracking-widest text-zinc-400 text-right">Aksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -97,11 +99,19 @@ export default function RSVPResults({ rsvps, onPageChange, onSearchChange, searc
                       minute: '2-digit'
                     })}
                   </td>
+                  <td className="px-6 py-4 text-right">
+                    <button 
+                      onClick={() => onDelete(rsvp.id)}
+                      className="size-8 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 float-right"
+                    >
+                      <span className="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                  </td>
                 </tr>
               ))}
               {currentItems.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-zinc-500 italic">No responses found.</td>
+                  <td colSpan={6} className="px-6 py-12 text-center text-zinc-500 italic">No responses found.</td>
                 </tr>
               )}
             </tbody>

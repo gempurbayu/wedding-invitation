@@ -88,3 +88,29 @@ export async function GET(request: Request) {
     });
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+    }
+
+    const { error } = await supabase
+      .from('rsvp')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Supabase Delete Error:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, message: 'RSVP deleted successfully' });
+  } catch (error) {
+    console.error('RSVP Delete Error:', error);
+    return NextResponse.json({ error: 'Failed to delete RSVP' }, { status: 500 });
+  }
+}

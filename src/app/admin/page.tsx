@@ -130,6 +130,16 @@ export default function AdminPage() {
     }
   };
 
+  const handleDeleteRSVP = async (id: string) => {
+    if (!confirm("Hapus data RSVP ini?")) return;
+    try {
+      const res = await fetch(`/api/rsvp?id=${id}`, { method: "DELETE" });
+      if (res.ok) fetchRSVP(rsvpPage, rsvpSearch, rsvpStatus);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleLogout = () => {
     sessionStorage.removeItem("admin_auth");
     setIsAuthenticated(false);
@@ -192,6 +202,7 @@ export default function AdminPage() {
               searchQuery={rsvpSearch}
               statusFilter={rsvpStatus}
               onStatusChange={setRsvpStatus}
+              onDelete={handleDeleteRSVP}
             />
           )}
         </motion.div>

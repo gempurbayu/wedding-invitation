@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import Countdown from "@/components/Countdown";
 import { invitationData } from "@/data/invitation";
 
-const Map = dynamic(() => import("@/components/Map"), { 
+const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
   loading: () => <div className="w-full h-full bg-primary/10 animate-pulse flex items-center justify-center font-bold text-primary/40 italic uppercase tracking-widest text-xs">Loading Map...</div>
 });

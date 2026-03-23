@@ -32,7 +32,7 @@ export const invitationData = {
     calendarLink: "https://www.google.com/calendar/render?action=TEMPLATE&text=Joel+%26+Vio+Wedding&dates=20260411T133000/20260411T200000&details=Join+us+for+our+special+day!+Adat+Dayak+at+1:30+PM,+Pemberkatan+at+4:15+PM.&location=My+Pisita+Anyer+Resort,+Banten",
     schedule: [
       {
-        title: "Pernikahan Adat Dayak",
+        title: "Pemenuhan Hukum Adat Dayak Ngaju",
         time: "13.30 s/d 15.00",
         venue: "Villa My Pisita Anyer"
       },
