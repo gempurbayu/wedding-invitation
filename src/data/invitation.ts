@@ -6,7 +6,7 @@ export const invitationData = {
       image: "/photos/mempelai_pria.JPG",
       parents: {
         father: "Alm. Massa Karya Ginting, S.Ba.",
-        mother: "Alm. dr. Srimawati Sembiring, S.Ked."
+        mother: "Alm. dr. Srimawati Sembiring"
       }
     },
     bride: {
